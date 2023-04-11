@@ -1,0 +1,61 @@
+[
+  {
+    "category": "Price",
+    "type": ["Budget", "Medium", "Expensive"]
+  },
+  {
+    "category": "Star Rating",
+    "type": ["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"]
+  },
+  {
+    "category": "Location",
+    "type": ["Landmark", "Neighborhood", "City Center"]
+  },
+  {
+    "category": "Amenities",
+    "type": [
+      "Free Wi-Fi",
+      "Parking",
+      "Swimming Pool",
+      "Fitness Center",
+      "Spa",
+      "Restaurant"
+    ]
+  },
+  {
+    "category": "Room Type",
+    "type": ["Single", "Double", "Suite", "Family Rooms"]
+  },
+  {
+    "category": "Guest Reviews",
+    "type": ["1-10 Scale", "1-5 Scale"]
+  },
+  {
+    "category": "Hotel Chain/Brand",
+    "type": ["Marriott", "Hilton", "Hyatt"]
+  },
+  {
+    "category": "Pet-Friendly",
+    "type": ["Pets Allowed", "Pet-Friendly Accommodations"]
+  },
+  {
+    "category": "Accessibility",
+    "type": ["Wheelchair-Accessible Rooms", "Accessibility Features"]
+  },
+  {
+    "category": "Eco-Friendly",
+    "type": ["Environmentally-Friendly Practices", "Certifications"]
+  },
+  {
+    "category": "Meal Plans",
+    "type": ["Bed & Breakfast", "Half-Board", "All-Inclusive"]
+  },
+  {
+    "category": "Business Facilities",
+    "type": ["Business Centers", "Meeting Rooms", "Conference Facilities"]
+  },
+  {
+    "category": "Family-Friendly",
+    "type": ["Playgrounds", "Babysitting Services", "Kids' Clubs"]
+  }
+]
