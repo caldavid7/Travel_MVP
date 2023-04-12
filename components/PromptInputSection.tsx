@@ -59,12 +59,15 @@ export default function BubbleSection({}: Props): ReactElement {
 
   //! Set to the localstorage
   useEffect(() => {
+    console.log(preferences);
     if (preferences.length < 1) {
       setIsUsingPreviousPreferences(false);
     }
-    preferences.length > 0 &&
-      localStorage.setItem("preferences", JSON.stringify(preferences));
-  }, [preferences, setIsUsingPreviousPreferences]);
+  }, [
+    preferences,
+    setIsUsingPreviousPreferences,
+    shouldTheSelectionBoxBeDisplayed,
+  ]);
 
   //! Handle the opening and closing of the preferences box
   useEffect(() => {
@@ -126,35 +129,41 @@ export default function BubbleSection({}: Props): ReactElement {
           >
             Search
           </motion.button>
-          {!shouldTheSelectionBoxBeDisplayed && preferences.length > 0 && (
-            <div className="flex items-center justify-between text-white">
-              <div className="justify-self-start">
-                <button
-                  onClick={(e) => {
-                    setShouldTheSelectionBoxBeDisplayed(true);
-                    e.stopPropagation();
-                  }}
-                  className="bg-transparent  font-bold tracking-wide"
-                >
-                  Change Preferences
-                </button>
+          {typeof window !== undefined &&
+            !shouldTheSelectionBoxBeDisplayed &&
+            JSON.parse(localStorage?.getItem("preferences") || "[]").length >
+              0 && (
+              <div className="flex items-center justify-between text-white">
+                <div className="justify-self-start">
+                  <button
+                    onClick={(e) => {
+                      setShouldTheSelectionBoxBeDisplayed(true);
+                      e.stopPropagation();
+                    }}
+                    className="bg-transparent  font-bold tracking-wide"
+                  >
+                    Change Preferences
+                  </button>
+                </div>
+                <div className="flex justify-self-end  gap-2">
+                  <input
+                    type="checkbox"
+                    className=" text-blue-500 checked:bg-red-500"
+                    checked={isUsingPreviousPreferences}
+                    onChange={() => {
+                      setIsUsingPreviousPreferences((prev) => !prev);
+                    }}
+                    id="isUsingPreviousPreferences"
+                  />
+                  <label
+                    htmlFor="isUsingPreviousPreferences"
+                    className="text-sm"
+                  >
+                    Use the previous preferences
+                  </label>
+                </div>
               </div>
-              <div className="flex justify-self-end  gap-2">
-                <input
-                  type="checkbox"
-                  className=" text-blue-500 checked:bg-red-500"
-                  checked={isUsingPreviousPreferences}
-                  onChange={() => {
-                    setIsUsingPreviousPreferences((prev) => !prev);
-                  }}
-                  id="isUsingPreviousPreferences"
-                />
-                <label htmlFor="isUsingPreviousPreferences" className="text-sm">
-                  Use the previous preferences
-                </label>
-              </div>
-            </div>
-          )}
+            )}
         </motion.div>
       </div>
     </motion.div>
@@ -200,6 +209,7 @@ export default function BubbleSection({}: Props): ReactElement {
         });
       } finally {
         setIsLoading(false);
+        localStorage.setItem("preferences", JSON.stringify(preferences));
       }
     } else {
       setPreferences([]);
