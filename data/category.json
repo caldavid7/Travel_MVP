@@ -1,61 +1,92 @@
 [
   {
     "category": "Price",
-    "type": ["Budget", "Medium", "Expensive"]
+    "type": ["Budget", "Medium", "Expensive"],
+    "color": "#1B5E20"
   },
   {
     "category": "Star Rating",
-    "type": ["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"]
+    "type": ["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"],
+    "color": "#FBC02D"
   },
   {
     "category": "Location",
-    "type": ["Landmark", "Neighborhood", "City Center"]
+    "type": ["Landmark", "Neighborhood", "City Center"],
+    "color": "#6A1B9A"
   },
   {
-    "category": "Amenities",
-    "type": [
-      "Free Wi-Fi",
-      "Parking",
-      "Swimming Pool",
-      "Fitness Center",
-      "Spa",
-      "Restaurant"
-    ]
+    "category": "Wi-Fi",
+    "type": ["Free Wi-Fi"],
+    "color": "#F44336"
+  },
+  {
+    "category": "Parking",
+    "type": ["Parking"],
+    "color": "#FF9800"
+  },
+  {
+    "category": "Swimming Pool",
+    "type": ["Swimming Pool"],
+    "color": "#4CAF50"
+  },
+  {
+    "category": "Fitness Center",
+    "type": ["Fitness Center"],
+    "color": "#2196F3"
+  },
+  {
+    "category": "Spa",
+    "type": ["Spa"],
+    "color": "#9C27B0"
+  },
+  {
+    "category": "Restaurant",
+    "type": ["Restaurant"],
+    "color": "#795548"
   },
   {
     "category": "Room Type",
-    "type": ["Single", "Double", "Suite", "Family Rooms"]
+    "type": ["Single Bed", "Double Bed", "Family Rooms"],
+    "color": "#E91E63"
   },
   {
     "category": "Guest Reviews",
-    "type": ["1-10 Scale", "1-5 Scale"]
+    "type": ["1-10 Scale", "1-5 Scale"],
+    "color": "#C62828"
   },
   {
     "category": "Hotel Chain/Brand",
-    "type": ["Marriott", "Hilton", "Hyatt"]
+    "type": ["Marriott", "Hilton", "Hyatt"],
+    "color": "#d7b10b"
   },
   {
     "category": "Pet-Friendly",
-    "type": ["Pets Allowed", "Pet-Friendly Accommodations"]
+    "type": ["Pets Allowed", "Pet-Friendly Accommodations"],
+    "color": "#827717"
   },
   {
     "category": "Accessibility",
-    "type": ["Wheelchair-Accessible Rooms", "Accessibility Features"]
+    "type": ["Wheelchair-Accessible Rooms", "Accessibility Features"],
+    "color": "#1976D2"
   },
   {
     "category": "Eco-Friendly",
-    "type": ["Environmentally-Friendly Practices", "Certifications"]
+    "type": ["Environmentally-Friendly Practices", "Certifications"],
+    "color": "#2E7D32"
   },
   {
     "category": "Meal Plans",
-    "type": ["Bed & Breakfast", "Half-Board", "All-Inclusive"]
+    "type": ["Bed & Breakfast", "Half-Board Meal", "All-Inclusive Meal"],
+    "color": "#6D4C41"
   },
   {
     "category": "Business Facilities",
-    "type": ["Business Centers", "Meeting Rooms", "Conference Facilities"]
+    "type": ["Business Centers", "Meeting Rooms", "Conference Facilities"],
+    "color": "#0D47A1"
   },
   {
     "category": "Family-Friendly",
-    "type": ["Playgrounds", "Babysitting Services", "Kids' Clubs"]
+    "type": ["Playgrounds", "Babysitting Services", "Kids' Clubs"],
+    "color": "#AD1457"
   }
 ]

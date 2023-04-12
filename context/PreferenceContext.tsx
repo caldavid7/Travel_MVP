@@ -34,11 +34,12 @@ const PreferenceProvider = ({ children }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [preferences, setPreferences] = useState<Preference[] | []>([]);
   const [isUsingPreviousPreferences, setIsUsingPreviousPreferences] =
-    useState(true);
+    useState(false);
   useEffect(() => {
     const data = localStorage.getItem("preferences");
-    if (data) {
+    if (data && JSON.parse(data).length > 0) {
       setPreferences(JSON.parse(data));
+      setIsUsingPreviousPreferences(true);
     }
   }, []);
   return (

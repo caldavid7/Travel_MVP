@@ -4,9 +4,12 @@
 
 @layer components {
   .inputSection {
-    @apply p-3 border-2  rounded-lg border-primary-red placeholder:text-secondary-red w-full relative;
+    @apply p-3 border-2  rounded-lg w-full relative border-gray-400 focus:outline-transparent focus:border-green-500;
   }
   .heading {
-    @apply text-4xl font-sans font-extrabold text-white  text-center;
+    @apply text-4xl font-sans font-extrabold text-white  text-center mt-4;
+  }
+  .bubble {
+    @apply rounded-full px-2 py-1 text-center text-white font-bold cursor-pointer;
   }
 }

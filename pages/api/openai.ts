@@ -23,7 +23,6 @@ export default async function handler(
   }
 
   const {
-    prompt,
     preferences,
     location,
   }: { location: string; prompt: string; preferences: Preferences[] } =
@@ -36,7 +35,7 @@ export default async function handler(
       : `\n${preference.category} : ${preference.type} \n`;
   });
 
-  const actualPrompt = `${prompt} in ${location} with the following feature ${processedPreference} With a little description of each one.`;
+  const actualPrompt = `What the best hotels in ${location} with the following feature ${processedPreference} With a little description of each one.`;
 
   // Log the output to the console
   console.log(actualPrompt);
@@ -48,7 +47,7 @@ export default async function handler(
         {
           role: "system",
           content:
-            "You are a expert about hotels in the world who only give correct genuine answer in a human tone",
+            "You are a expert about hotels in the world who only gives correct and genuine answer in a human like tone",
         },
         {
           role: "user",
@@ -61,7 +60,7 @@ export default async function handler(
     res.status(200).json({
       success: true,
       response: {
-        question: prompt + " in " + location,
+        question: "What are the best hotels" + " in " + location,
         answer:
           response.data.choices[0].message?.content ||
           "There was an error please try again",

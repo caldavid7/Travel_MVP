@@ -1,4 +1,10 @@
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {
+  ReactElement,
+  useEffect,
+  useRef,
+  useState,
+  MutableRefObject,
+} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import PreferenceBox, { Preference } from "./PreferenceBox";
 import { usePreference } from "@/context/PreferenceContext";
@@ -21,6 +27,7 @@ const bubbleSelectionVariants = {
 
 export default function BubbleSection({}: Props): ReactElement {
   const router = useRouter();
+  const inputSectionRef = useRef<HTMLDivElement>(null);
   //! State for preference box
   const [
     shouldTheSelectionBoxBeDisplayed,
@@ -34,39 +41,67 @@ export default function BubbleSection({}: Props): ReactElement {
     setIsLoading,
   } = usePreference();
 
-  const [prompt, setPrompt] = useState<string>("");
-
   const [location, setLocation] = useState<string>("");
+  const timeOutRef: MutableRefObject<NodeJS.Timeout | undefined> = useRef();
 
   const { preferences, setPreferences } = usePreference();
-  useEffect(() => {}, []);
+  useEffect(() => {
+    document.addEventListener("click", handler);
+    function handler(e: MouseEvent) {
+      if (!inputSectionRef.current?.contains(e.target as Element)) {
+        setShouldTheSelectionBoxBeDisplayed(false);
+      }
+    }
+    return () => {
+      document.removeEventListener("click", handler);
+    };
+  }, []);
+
+  //! Set to the localstorage
+  useEffect(() => {
+    if (preferences.length < 1) {
+      setIsUsingPreviousPreferences(false);
+    }
+    preferences.length > 0 &&
+      localStorage.setItem("preferences", JSON.stringify(preferences));
+  }, [preferences]);
+
+  //! Handle the opening and closing of the preferences box
+  useEffect(() => {
+    if (!location) {
+      timeOutRef.current = setTimeout(() => {
+        setShouldTheSelectionBoxBeDisplayed(false);
+      }, 1000);
+    }
+    if (location)
+      timeOutRef.current = setTimeout(() => {
+        setShouldTheSelectionBoxBeDisplayed(true);
+      }, 500);
+    return () => {
+      clearTimeout(timeOutRef.current);
+    };
+  }, [location]);
 
   // TODO this popup is open  in the begging for getting use preferences
   return (
-    <motion.div className="bg-transparent grid place-items-center overflow-hidden">
+    <motion.div
+      ref={inputSectionRef}
+      className="bg-transparent grid place-items-center overflow-hidden"
+    >
       <div>
         <motion.div
-          className="text-white space-y-4 bg-gray-400/30 p-4 rounded-lg w-screen md:w-auto"
+          className="text-white space-y-4 bg-black/50 p-4 filter backdrop-blur-lg rounded-lg w-screen md:w-auto"
           transition={{ duration: 1 }}
           initial="hidden"
           animate="visible"
           exit="hidden"
           variants={bubbleSelectionVariants}
         >
-          <h1 className="text-4xl font-bold tracking-wide">
-            Explore the world with ease
+          <h1 className="text-3xl font-bold tracking-wide">
+            Find the perfect accommodation for you
           </h1>
 
           <div className=" space-y-4 text-black overflow-hidden w-full md:max-w-4xl">
-            <input
-              onChange={(e) => {
-                setPrompt(e.target.value);
-              }}
-              className="inputSection"
-              type="text"
-              placeholder="Find the perfect hotel"
-            />
-
             <input
               onChange={(e) => {
                 setLocation(e.target.value);
@@ -75,56 +110,59 @@ export default function BubbleSection({}: Props): ReactElement {
               type="text"
               placeholder="Select a location"
             />
+
+            <AnimatePresence>
+              {shouldTheSelectionBoxBeDisplayed && (
+                <PreferenceBox
+                  setShouldBeShow={setShouldTheSelectionBoxBeDisplayed}
+                ></PreferenceBox>
+              )}
+            </AnimatePresence>
           </div>
           <motion.button
             onClick={preferencesHandler}
             whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
-            className="w-full bg-gradient-to-t text-center rounded-md p-2 from-primary-red to-secondary-red"
+            className="w-full bg-ocean  bg-[length:150%] font-bold text-lg bg-[0%] tracking-widest text-center rounded-md p-2 hover:bg-right transition-all  duration-150"
           >
             Search
           </motion.button>
+          {!shouldTheSelectionBoxBeDisplayed && preferences.length > 0 && (
+            <div className="flex items-center justify-between text-white">
+              <div className="justify-self-start">
+                <button
+                  onClick={(e) => {
+                    setShouldTheSelectionBoxBeDisplayed(true);
+                    e.stopPropagation();
+                  }}
+                  className="bg-transparent  font-bold tracking-wide"
+                >
+                  Change Preferences
+                </button>
+              </div>
+              <div className="flex justify-self-end  gap-2">
+                <input
+                  type="checkbox"
+                  className=" text-blue-500 checked:bg-red-500"
+                  checked={isUsingPreviousPreferences}
+                  onChange={() => {
+                    setIsUsingPreviousPreferences((prev) => !prev);
+                  }}
+                  id="isUsingPreviousPreferences"
+                />
+                <label htmlFor="isUsingPreviousPreferences" className="text-sm">
+                  Use the previous preferences
+                </label>
+              </div>
+            </div>
+          )}
         </motion.div>
-        {!shouldTheSelectionBoxBeDisplayed && preferences.length > 0 && (
-          <div className="flex items-center justify-between">
-            <div className="justify-self-start">
-              <button
-                onClick={() => setShouldTheSelectionBoxBeDisplayed(true)}
-                className="bg-transparent text-primary-red"
-              >
-                Change Preferences
-              </button>
-            </div>
-            <div className="flex justify-self-end text-white gap-2">
-              <input
-                type="checkbox"
-                className="checked:bg-primary-red text-blue-500"
-                checked={isUsingPreviousPreferences}
-                onChange={() => {
-                  setIsUsingPreviousPreferences((prev) => !prev);
-                }}
-                id="isUsingPreviousPreferences"
-              />
-              <label htmlFor="isUsingPreviousPreferences" className="text-sm">
-                Use the previous preferences
-              </label>
-            </div>
-          </div>
-        )}
       </div>
-
-      <AnimatePresence>
-        {shouldTheSelectionBoxBeDisplayed && (
-          <PreferenceBox
-            setShouldBeShow={setShouldTheSelectionBoxBeDisplayed}
-          ></PreferenceBox>
-        )}
-      </AnimatePresence>
     </motion.div>
   );
   async function preferencesHandler() {
-    if (!location.trim() || !prompt.trim()) {
-      // location or prompt is empty, handle error
-      toast.error("Please make sure that location and Search are not empty", {
+    if (!location.trim()) {
+      // location is empty, handle error
+      toast.error("Please make sure that location is not empty", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -142,7 +180,6 @@ export default function BubbleSection({}: Props): ReactElement {
       setIsLoading(true);
       try {
         const res = await axios.post("/api/openai", {
-          prompt,
           location,
           preferences,
         });
@@ -167,6 +204,17 @@ export default function BubbleSection({}: Props): ReactElement {
     } else {
       setPreferences([]);
       setShouldTheSelectionBoxBeDisplayed(true);
+      if (preferences.length > 0)
+        toast.error("Make sure preferences are selected for better result", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
     }
   }
 }
