@@ -64,7 +64,7 @@ export default function BubbleSection({}: Props): ReactElement {
     }
     preferences.length > 0 &&
       localStorage.setItem("preferences", JSON.stringify(preferences));
-  }, [preferences]);
+  }, [preferences, setIsUsingPreviousPreferences]);
 
   //! Handle the opening and closing of the preferences box
   useEffect(() => {
