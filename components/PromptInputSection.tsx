@@ -59,7 +59,7 @@ export default function BubbleSection({}: Props): ReactElement {
 
   //! Set to the localstorage
   useEffect(() => {
-    console.log(preferences);
+    if (preferences.length > 0) setIsUsingPreviousPreferences(true);
     if (preferences.length < 1) {
       setIsUsingPreviousPreferences(false);
     }
@@ -214,7 +214,7 @@ export default function BubbleSection({}: Props): ReactElement {
     } else {
       setPreferences([]);
       setShouldTheSelectionBoxBeDisplayed(true);
-      if (preferences.length > 0)
+      if (preferences.length < 1)
         toast.error("Make sure preferences are selected for better result", {
           position: "top-center",
           autoClose: 3000,
