@@ -1,3 +1,5 @@
+import { Configuration, OpenAIApi } from "openai";
+import { NextApiRequest, NextApiResponse } from "next";
 import React, {
   ReactElement,
   useEffect,
@@ -188,13 +190,10 @@ export default function BubbleSection({}: Props): ReactElement {
       // TODO search
       setIsLoading(true);
       try {
-        const res = await axios.post("/api/openai", {
-          location,
-          preferences,
-        });
+        const response = await getOpenAIRespone();
         router.push(
           "/answer?result=" +
-            encodeURIComponent(JSON.stringify(res.data.response))
+            encodeURIComponent(JSON.stringify(response?.response))
         );
       } catch (error) {
         toast.error("Something went wrong", {
@@ -225,6 +224,55 @@ export default function BubbleSection({}: Props): ReactElement {
           progress: undefined,
           theme: "dark",
         });
+    }
+  }
+  async function getOpenAIRespone() {
+    const configuration = new Configuration({
+      organization: "org-7Gd4Qa9tLzqLrAZ7AVZvhy2H",
+      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
+    });
+    const openai = new OpenAIApi(configuration);
+
+    let processedPreference: string = "";
+    preferences.map((preference) => {
+      processedPreference = processedPreference
+        ? processedPreference + `${preference.category} : ${preference.type} \n`
+        : `\n${preference.category} : ${preference.type} \n`;
+    });
+
+    const actualPrompt = `What the best hotels in ${location} with the following feature ${processedPreference} With a little description of each one.`;
+
+    // Log the output to the console
+    console.log(actualPrompt);
+
+    try {
+      const response = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a expert about hotels in the world who only gives correct and genuine answer in a human like tone",
+          },
+          {
+            role: "user",
+            content: actualPrompt,
+          },
+        ],
+      });
+      console.log(response.data.choices[0]);
+      // Return a response indicating success
+      return {
+        response: {
+          question: "What are the best hotels" + " in " + location,
+          answer:
+            response.data.choices[0].message?.content ||
+            "There was an error please try again",
+        },
+      };
+    } catch (error) {
+      // Send an error response to the user
+      console.log(error);
     }
   }
 }
