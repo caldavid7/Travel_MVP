@@ -87,6 +87,16 @@ export default function BubbleSection({}: Props): ReactElement {
     };
   }, [location]);
 
+  //! Set the state from the localStorage
+  useEffect(() => {
+    if (
+      isUsingPreviousPreferences &&
+      JSON.parse(localStorage.getItem("preferences") || "[]").length > 0
+    ) {
+      setPreferences(JSON.parse(localStorage.getItem("preferences") || "[]"));
+    }
+  }, [isUsingPreviousPreferences, setPreferences]);
+
   // TODO this popup is open  in the begging for getting use preferences
   return (
     <motion.div
@@ -170,9 +180,10 @@ export default function BubbleSection({}: Props): ReactElement {
       </div>
     </motion.div>
   );
+
   async function preferencesHandler() {
     if (!location.trim()) {
-      // location is empty, handle error
+      //TODO location is empty, handle error
       toast.error("Please make sure that location is not empty", {
         position: "top-center",
         autoClose: 3000,
@@ -190,7 +201,7 @@ export default function BubbleSection({}: Props): ReactElement {
       // TODO search
       setIsLoading(true);
       try {
-        const response = await getOpenAIRespone();
+        const response = await getOpenAIResponse();
         router.push(
           "/answer?result=" +
             encodeURIComponent(JSON.stringify(response?.response))
@@ -226,7 +237,8 @@ export default function BubbleSection({}: Props): ReactElement {
         });
     }
   }
-  async function getOpenAIRespone() {
+
+  async function getOpenAIResponse() {
     const configuration = new Configuration({
       organization: "org-7Gd4Qa9tLzqLrAZ7AVZvhy2H",
       apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
@@ -241,9 +253,6 @@ export default function BubbleSection({}: Props): ReactElement {
     });
 
     const actualPrompt = `What the best hotels in ${location} with the following feature ${processedPreference} With a little description of each one.`;
-
-    // Log the output to the console
-    console.log(actualPrompt);
 
     try {
       const response = await openai.createChatCompletion({
@@ -260,7 +269,6 @@ export default function BubbleSection({}: Props): ReactElement {
           },
         ],
       });
-      console.log(response.data.choices[0]);
       // Return a response indicating success
       return {
         response: {
@@ -271,8 +279,8 @@ export default function BubbleSection({}: Props): ReactElement {
         },
       };
     } catch (error) {
-      // Send an error response to the user
-      console.log(error);
+      //! Throw the error
+      throw error;
     }
   }
 }
