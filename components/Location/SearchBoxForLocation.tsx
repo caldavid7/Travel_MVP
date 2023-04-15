@@ -1,19 +1,13 @@
 import { Configuration, OpenAIApi } from "openai";
-import { NextApiRequest, NextApiResponse } from "next";
-import React, {
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-  MutableRefObject,
-} from "react";
+import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import PreferenceBox, { Preference } from "./PreferenceBox";
-import { usePreference } from "@/context/PreferenceContext";
-import axios from "axios";
+import Countries from "../../data/counties.json";
+import PreferenceBox, { Preference } from "../PreferenceBox";
+import { useAppState } from "@/context/PreferenceContext";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import SearchBar from "../SearchBar";
 
 interface Props {}
 const bubbleSelectionVariants = {
@@ -41,12 +35,13 @@ export default function BubbleSection({}: Props): ReactElement {
     isUsingPreviousPreferences,
     setIsUsingPreviousPreferences,
     setIsLoading,
-  } = usePreference();
+    preferences,
+    setPreferences,
+    location,
+    setLocation,
+  } = useAppState();
 
-  const [location, setLocation] = useState<string>("");
-  const timeOutRef: MutableRefObject<NodeJS.Timeout | undefined> = useRef();
-
-  const { preferences, setPreferences } = usePreference();
+  //! Add the click listener to close the box when clicking outside the box
   useEffect(() => {
     document.addEventListener("click", handler);
     function handler(e: MouseEvent) {
@@ -71,22 +66,6 @@ export default function BubbleSection({}: Props): ReactElement {
     shouldTheSelectionBoxBeDisplayed,
   ]);
 
-  //! Handle the opening and closing of the preferences box
-  useEffect(() => {
-    if (!location) {
-      timeOutRef.current = setTimeout(() => {
-        setShouldTheSelectionBoxBeDisplayed(false);
-      }, 1000);
-    }
-    if (location)
-      timeOutRef.current = setTimeout(() => {
-        setShouldTheSelectionBoxBeDisplayed(true);
-      }, 500);
-    return () => {
-      clearTimeout(timeOutRef.current);
-    };
-  }, [location]);
-
   //! Set the state from the localStorage
   useEffect(() => {
     if (
@@ -101,82 +80,32 @@ export default function BubbleSection({}: Props): ReactElement {
   return (
     <motion.div
       ref={inputSectionRef}
-      className="bg-transparent grid place-items-center overflow-hidden"
+      transition={{ duration: 1 }}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      variants={bubbleSelectionVariants}
+      className="bg-transparent grid place-items-center overflow-hidden "
     >
-      <div>
-        <motion.div
-          className="text-white space-y-4 bg-black/50 p-4 filter backdrop-blur-lg rounded-lg w-screen md:w-auto"
-          transition={{ duration: 1 }}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={bubbleSelectionVariants}
-        >
-          <h1 className="text-3xl font-bold tracking-wide">
-            Find the perfect accommodation for you
-          </h1>
+      <h1 className="text-3xl text-white font-bold tracking-wide mb-4">
+        Find the perfect accommodation for you
+      </h1>
 
-          <div className=" space-y-4 text-black overflow-hidden w-full md:max-w-4xl">
-            <input
-              onChange={(e) => {
-                setLocation(e.target.value);
-              }}
-              className="inputSection"
-              type="text"
-              placeholder="Select a location"
-            />
-
-            <AnimatePresence>
-              {shouldTheSelectionBoxBeDisplayed && (
-                <PreferenceBox
-                  setShouldBeShow={setShouldTheSelectionBoxBeDisplayed}
-                ></PreferenceBox>
-              )}
-            </AnimatePresence>
-          </div>
-          <motion.button
-            onClick={preferencesHandler}
-            whileTap={{ scale: 0.95, transition: { duration: 0.1 } }}
-            className="w-full bg-ocean  bg-[length:150%] font-bold text-lg bg-[0%] tracking-widest text-center rounded-md p-2 hover:bg-right transition-all  duration-150"
-          >
-            Search
-          </motion.button>
-          {typeof window !== undefined &&
-            !shouldTheSelectionBoxBeDisplayed &&
-            JSON.parse(localStorage?.getItem("preferences") || "[]").length >
-              0 && (
-              <div className="flex items-center justify-between text-white">
-                <div className="justify-self-start">
-                  <button
-                    onClick={(e) => {
-                      setShouldTheSelectionBoxBeDisplayed(true);
-                      e.stopPropagation();
-                    }}
-                    className="bg-transparent  font-bold tracking-wide"
-                  >
-                    Change Preferences
-                  </button>
-                </div>
-                <div className="flex justify-self-end  gap-2">
-                  <input
-                    type="checkbox"
-                    className=" text-blue-500 checked:bg-red-500"
-                    checked={isUsingPreviousPreferences}
-                    onChange={() => {
-                      setIsUsingPreviousPreferences((prev) => !prev);
-                    }}
-                    id="isUsingPreviousPreferences"
-                  />
-                  <label
-                    htmlFor="isUsingPreviousPreferences"
-                    className="text-sm"
-                  >
-                    Use the previous preferences
-                  </label>
-                </div>
-              </div>
-            )}
+      <div className=" bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem]">
+        <motion.div className="text-white">
+          <SearchBar
+            text="Next"
+            value={location}
+            setInputField={setLocation}
+            handleClick={preferencesHandler}
+          ></SearchBar>
         </motion.div>
+
+        <PreferenceBox
+          List={Countries}
+          initialNoOfBubbles={20}
+          type="Country"
+        ></PreferenceBox>
       </div>
     </motion.div>
   );

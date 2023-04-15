@@ -1,4 +1,4 @@
-import { Preference, usePreference } from "@/context/PreferenceContext";
+import { Preference, useAppState } from "@/context/PreferenceContext";
 import { motion } from "framer-motion";
 import React, { ReactElement, useEffect } from "react";
 
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function Bubbles({ preference }: Props): ReactElement {
-  const { preferences, setPreferences } = usePreference();
+  const { preferences, setPreferences } = useAppState();
 
   const selectedPreference = preferences.find(
     (selectedPreference) => selectedPreference.category === preference.category
@@ -22,14 +22,14 @@ export default function Bubbles({ preference }: Props): ReactElement {
       {preference.type.map((type) => {
         return (
           <motion.div
+            layout
             whileTap={{ scale: 0.9 }}
             key={type}
             data-id={type.replace(" ", "-")}
-            onClick={(e) => selectingHandler(type, e)}
             style={{
-              backgroundColor:
-                selectedPreference?.type === type ? "black" : preference.color,
+              backgroundColor: selectedPreference?.type === type ? "red" : "",
             }}
+            onClick={(e) => selectingHandler(type, e)}
             className={`bubble ${preference.category}`}
           >
             #{type}
@@ -38,6 +38,7 @@ export default function Bubbles({ preference }: Props): ReactElement {
       })}
     </>
   );
+
   function selectingHandler(
     option: string,
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
@@ -50,22 +51,18 @@ export default function Bubbles({ preference }: Props): ReactElement {
       existingPreferenceIndex !== -1 &&
       preferences[existingPreferenceIndex].type !== option
     ) {
-      console.log(
-        existingPreferenceIndex,
-        preferences[existingPreferenceIndex]
-      );
       document.querySelector(
         `[data-id="${preferences[existingPreferenceIndex].type.replace(
           " ",
           "-"
         )}"]`
         //@ts-ignore
-      )!.style.backgroundColor = preference.color;
+      )!.style.backgroundColor = "";
 
       document.querySelector(
         `[data-id="${option.replace(" ", "-")}"]`
         //@ts-ignore
-      )!.style.backgroundColor = "black";
+      )!.style.backgroundColor = "red";
 
       setPreferences((prev) =>
         prev.map((preference, index) => {
@@ -92,14 +89,14 @@ export default function Bubbles({ preference }: Props): ReactElement {
         prev.filter((preference) => preference.type !== option)
       );
       // @ts-ignore
-      e.target.style.backgroundColor = preference.color;
+      e.target.style.backgroundColor = "";
       return;
     }
 
     //! When newly selected
     else {
       //@ts-ignore
-      e.target.style.backgroundColor = "black";
+      e.target.style.backgroundColor = "red";
       setPreferences((prev) => [
         { category: preference.category, type: option },
         ...prev,

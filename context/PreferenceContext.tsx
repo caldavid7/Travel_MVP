@@ -14,6 +14,8 @@ type State = {
   setIsUsingPreviousPreferences:
     | React.Dispatch<React.SetStateAction<boolean>>
     | (() => void);
+  location: string;
+  setLocation: React.Dispatch<React.SetStateAction<string>> | (() => void);
   isUsingPreviousPreferences: boolean;
 
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>> | (() => void);
@@ -21,6 +23,8 @@ type State = {
 };
 const PreferenceContext = createContext<State>({
   preferences: [],
+  setLocation: () => undefined,
+  location: "",
   setPreferences: () => undefined,
   isUsingPreviousPreferences: false,
   setIsUsingPreviousPreferences: () => undefined,
@@ -33,6 +37,7 @@ interface Props {
 const PreferenceProvider = ({ children }: Props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [preferences, setPreferences] = useState<Preference[] | []>([]);
+  const [location, setLocation] = useState("");
   const [isUsingPreviousPreferences, setIsUsingPreviousPreferences] =
     useState(false);
   useEffect(() => {
@@ -45,6 +50,8 @@ const PreferenceProvider = ({ children }: Props) => {
   return (
     <PreferenceContext.Provider
       value={{
+        location,
+        setLocation,
         preferences,
         setPreferences,
         isUsingPreviousPreferences,
@@ -57,7 +64,7 @@ const PreferenceProvider = ({ children }: Props) => {
     </PreferenceContext.Provider>
   );
 };
-export const usePreference = () => {
+export const useAppState = () => {
   const {
     preferences,
     setPreferences,
@@ -65,6 +72,8 @@ export const usePreference = () => {
     setIsUsingPreviousPreferences,
     isLoading,
     setIsLoading,
+    setLocation,
+    location,
   } = useContext(PreferenceContext);
   return {
     preferences,
@@ -73,6 +82,8 @@ export const usePreference = () => {
     setIsUsingPreviousPreferences,
     isLoading,
     setIsLoading,
+    location,
+    setLocation,
   };
 };
 export default PreferenceProvider;

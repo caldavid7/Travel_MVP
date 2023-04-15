@@ -14,6 +14,8 @@ module.exports = {
         ocean: "linear-gradient(90deg, #1CB5E0 0%, #000851 100%);",
       },
       colors: {
+        "transparent-black": "rgba(35, 35, 35, 0.64)",
+        "light-gray": " #F3F3F3",
         "primary-red": "#E32636",
         "secondary-red": "#FF0000",
         "primary-black": "#020202",

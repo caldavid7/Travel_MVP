@@ -1,8 +1,9 @@
-import { usePreference } from "@/context/PreferenceContext";
-import { AnimatePresence, motion } from "framer-motion";
-import React, { ReactElement, useState } from "react";
-import Categories from "../data/category.json";
-import Bubbles from "./Bubbles";
+import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
+import React, { ReactElement, useEffect, useState } from "react";
+import BubblesForPreference from "./Location/BubbleForPreference";
+import BubblesForCountries from "./Preference/BubblesForCountries";
 
 export interface Preference {
   category: string;
@@ -10,13 +11,28 @@ export interface Preference {
 }
 
 interface Props {
-  setShouldBeShow: React.Dispatch<React.SetStateAction<boolean>>;
+  List: any[];
+  initialNoOfBubbles: number;
+  type: "Preference" | "Country";
 }
+
 export default function PreferenceBox({
-  setShouldBeShow,
+  List,
+  initialNoOfBubbles,
+  type,
 }: Props): ReactElement {
-  const { preferences, setPreferences, setIsUsingPreviousPreferences } =
-    usePreference();
+  const [shouldTheListBeDisplayed, setShouldTheListBeDisplayed] =
+    useState(false);
+  const [shouldMoreListBeDisplayed, setShouldMoreListBeDisplayed] =
+    useState(false);
+
+  useEffect(() => {
+    if (!shouldTheListBeDisplayed) {
+      setShouldMoreListBeDisplayed(false);
+    }
+  }, [shouldTheListBeDisplayed]);
+
+  const controls = useAnimation();
   return (
     <motion.div
       initial={{
@@ -29,34 +45,141 @@ export default function PreferenceBox({
         transition: { duration: 1 },
       }}
       animate={{ opacity: 1, height: "auto", transition: { duration: 1 } }}
-      className=" w-screen md:max-w-xl grid gap-4 mt-4 max-h-96 overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400"
+      className=" w-full grid gap-4 mt-4 max-h-96 overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400"
     >
-      <h1 className="my-4 text-center text-white font-bold text-2xl ">
-        Select your preference
-      </h1>
-      <div className="flex gap-4 flex-wrap pl-4">
-        {Categories.map((preference, index) => {
-          return <Bubbles key={index} preference={preference}></Bubbles>;
-        })}
-      </div>
-      <div className="flex items-center justify-between gap-8 px-4">
-        <button
+      <div className=" text-lg text-white ">
+        <div
+          className="flex items-center gap-2"
           onClick={() => {
-            setShouldBeShow(false);
-            if (preferences.length > 0) setIsUsingPreviousPreferences(true);
-            localStorage.setItem("preferences", JSON.stringify(preferences));
+            setShouldTheListBeDisplayed((prev) => {
+              if (prev)
+                controls.start({ rotate: "0deg", transition: { duration: 1 } });
+              else
+                controls.start({
+                  rotate: "180deg",
+                  transition: { duration: 1 },
+                });
+
+              return !prev;
+            });
           }}
-          className="bg-green-500 hover:bg-green-600 rounded-full justify-self-center px-4 py-2 "
         >
-          Close
-        </button>
-        <button
-          onClick={() => setPreferences([])}
-          className="bg-white/50 text-black hover:bg-white/30 rounded-full justify-self-center px-4 py-2 "
-        >
-          Reset
-        </button>
+          <motion.span animate={controls}>
+            <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
+          </motion.span>
+          <span className="text-base font-semibold">Select preferences</span>
+        </div>
       </div>
+      <AnimatePresence>
+        {shouldTheListBeDisplayed && (
+          <motion.div
+            initial={{ height: 0 }}
+            animate={{ height: "auto" }}
+            transition={{ duration: 1 }}
+            exit={{ height: 0 }}
+            className=" "
+          >
+            <motion.div
+              className="
+            flex gap-2 flex-wrap
+            
+            "
+            >
+              {type === "Preference" &&
+                List.slice(0, initialNoOfBubbles).map((preference, index) => {
+                  return (
+                    <BubblesForPreference
+                      key={index}
+                      preference={preference}
+                    ></BubblesForPreference>
+                  );
+                })}
+
+              {type === "Country" &&
+                List.slice(0, initialNoOfBubbles).map((country, index) => {
+                  return (
+                    <BubblesForCountries
+                      value={country}
+                      key={index}
+                    ></BubblesForCountries>
+                  );
+                })}
+            </motion.div>
+
+            <AnimatePresence>
+              {shouldMoreListBeDisplayed && (
+                <motion.div
+                  initial={{ height: 0 }}
+                  animate={{ height: "auto" }}
+                  transition={{ duration: 1 }}
+                  exit={{ height: 0 }}
+                  className="flex gap-2 mt-2 flex-wrap overflow-hidden"
+                >
+                  {type === "Preference" &&
+                    List.slice(initialNoOfBubbles, List.length).map(
+                      (preference, index) => {
+                        return (
+                          <BubblesForPreference
+                            key={index}
+                            preference={preference}
+                          ></BubblesForPreference>
+                        );
+                      }
+                    )}
+                  {type === "Country" &&
+                    List.slice(initialNoOfBubbles, List.length).map(
+                      (country, index) => {
+                        return (
+                          <BubblesForCountries
+                            value={country}
+                            key={index}
+                          ></BubblesForCountries>
+                        );
+                      }
+                    )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            <div className="mt-2 flex items-center justify-center text-lg text-white ">
+              <div
+                className="flex items-center gap-2"
+                onClick={() => {
+                  setShouldMoreListBeDisplayed((prev) => {
+                    if (prev) {
+                      controls.start((item) => {
+                        return item === 2
+                          ? {
+                              rotate: "0deg",
+                              transition: { duration: 1 },
+                            }
+                          : {};
+                      });
+                    } else {
+                      controls.start((item) => {
+                        return item === 2
+                          ? {
+                              rotate: "180deg",
+                              transition: { duration: 1 },
+                            }
+                          : {};
+                      });
+                    }
+                    return !prev;
+                  });
+                }}
+              >
+                <motion.span animate={controls} custom={2}>
+                  <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
+                </motion.span>
+                <span className="text-base font-semibold">
+                  {shouldMoreListBeDisplayed ? "View Less" : "View More"}
+                </span>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.div>
   );
 }
