@@ -8,6 +8,7 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   return (
     <>
       <Head>
@@ -24,34 +25,24 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="author" content="Callum Amor" />
         <meta name="robots" content="index,follow" />
       </Head>
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={router.route}
-          initial="initialState"
-          animate="animateState"
-          exit="exitState"
-          transition={{
-            duration: 0.75,
-          }}
-          variants={{
-            initialState: {
-              opacity: 0,
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-            },
-            animateState: {
-              opacity: 1,
-              clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
-            },
-            exitState: {
-              clipPath: "polygon(50% 0, 50% 0, 50% 100%, 50% 100%)",
-            },
-          }}
-        >
-          <PreferenceProvider>
-            <Component {...pageProps} />
-          </PreferenceProvider>
-        </motion.div>
-      </AnimatePresence>
+      <div style={{ perspective: -500 }}>
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.div
+            key={router.route}
+            initial="initialState"
+            animate="animateState"
+            exit="exitState"
+            transition={{
+              duration: 1,
+            }}
+            variants={pageProps.variants}
+          >
+            <PreferenceProvider>
+              <Component {...pageProps} />
+            </PreferenceProvider>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </>
   );
 }

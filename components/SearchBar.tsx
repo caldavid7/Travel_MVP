@@ -6,6 +6,7 @@ interface Props {
   handleClick: () => void;
   setInputField: React.Dispatch<React.SetStateAction<string>>;
   value: string;
+  disabled: boolean;
 }
 
 export default function SearchBar({
@@ -13,6 +14,7 @@ export default function SearchBar({
   text,
   setInputField,
   value,
+  disabled,
 }: Props): ReactElement {
   const searchBarRef = useRef<HTMLInputElement>(null);
 
@@ -37,7 +39,8 @@ export default function SearchBar({
         placeholder="Select place here"
       />
       <button
-        className="bg-light-gray h-full rounded-lg px-4 font-semibold text-base text-red-500"
+        disabled={disabled}
+        className="bg-light-gray h-full rounded-lg px-4 font-semibold text-base text-red-500 disabled:text-gray-400"
         onClick={handleClick}
       >
         {text}
