@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <link rel="shortcut icon" href="/logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="/Logo.svg" />
         <title>Travel With Ease</title>
         <meta
           name="description"

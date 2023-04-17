@@ -6,6 +6,7 @@ import Countries from "../../data/counties.json";
 import { useAppState } from "@/context/PreferenceContext";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Logo from "../Logo";
 
 interface Props {}
 
@@ -13,8 +14,8 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
   const router = useRouter();
   const { location, setLocation } = useAppState();
   return (
-    <div className="text-center">
-      <h1 className="text-3xl text-white font-bold tracking-wide mb-4">
+    <div className="text-center relative z-50">
+      <h1 className="text-3xl text-white font-bold tracking-wide mb-4 ">
         Find the perfect accommodation for you
       </h1>
       <div className=" bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem]">
@@ -30,7 +31,7 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
 
         <PreferenceBox
           List={Countries}
-          initialNoOfBubbles={20}
+          initialNoOfBubbles={22}
           type="Country"
         ></PreferenceBox>
       </div>

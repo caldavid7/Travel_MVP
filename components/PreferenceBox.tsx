@@ -34,10 +34,16 @@ export default function PreferenceBox({
 
   const controls = useAnimation();
   return (
-    <motion.div className=" w-full grid gap-4 mt-4 max-h-96 overflow-hidden overflow-y-scroll scrollbar-thin scrollbar-track-transparent scrollbar-thumb-gray-400">
+    <motion.div
+      className={`w-full grid gap-4 mt-4 max-h-96 overflow-hidden overflow-y-scroll scrollbar-thin ${
+        shouldMoreListBeDisplayed
+          ? "scrollbar-thumb-gray-400"
+          : "scrollbar-thumb-transparent"
+      } scrollbar-track-transparent `}
+    >
       <div className=" text-lg text-white ">
         <div
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 w-max"
           onClick={() => {
             setShouldTheListBeDisplayed((prev) => {
               // TODO rotate the caret upward and downward according to the state activeness
@@ -102,7 +108,7 @@ export default function PreferenceBox({
                 <motion.div
                   initial={{ height: 0 }}
                   animate={{ height: "auto" }}
-                  transition={{ duration: 1 }}
+                  transition={{ duration: 0.5 }}
                   exit={{ height: 0 }}
                   className="flex gap-2 mt-2 flex-wrap overflow-hidden"
                 >

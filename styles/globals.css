@@ -12,4 +12,10 @@
   .bubble {
     @apply rounded-lg border border-gray-500 bg-transparent px-2 py-1 text-center text-white  font-bold cursor-pointer;
   }
+  .answerContainer {
+    @apply scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white;
+  }
+}
+.answerContainer::-webkit-scrollbar-thumb {
+  border-radius: 999px;
 }

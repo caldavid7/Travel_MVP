@@ -82,7 +82,7 @@ export default function BubbleSection({}: Props): ReactElement {
         <motion.div className="text-white bg-white rounded-md">
           <SearchBar
             text="Generate"
-            disabled={false}
+            disabled={preferences.length < 1}
             value={prompt}
             setInputField={setPrompt}
             handleClick={preferencesHandler}
