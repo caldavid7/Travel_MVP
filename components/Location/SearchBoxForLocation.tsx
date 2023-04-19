@@ -25,6 +25,7 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
             disabled={!location.trim()}
             value={location}
             setInputField={setLocation}
+            placeHolder="Select country where you want to go"
             handleClick={preferencesHandler}
           ></SearchBar>
         </motion.div>
@@ -33,6 +34,7 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
           List={Countries}
           initialNoOfBubbles={22}
           type="Country"
+          placeHolder={"Select Country"}
         ></PreferenceBox>
       </div>
     </div>

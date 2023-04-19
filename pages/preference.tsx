@@ -15,7 +15,7 @@ export default function Home() {
   const { isLoading } = useAppState();
 
   return (
-    <div className="h-screen m-0 p-0 font-[Work_Sans] font-sans isolate bg-black">
+    <div className="h-screen m-0 p-0   relative z-50 isolate bg-black">
       <ToastContainer />
       {isLoading && <Loading />}
       <div className="absolute z-50 top-16 left-1/2 -translate-x-1/2">

@@ -4,13 +4,22 @@ import { useRouter } from "next/router";
 import PreferenceProvider from "@/context/PreferenceContext";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import { Work_Sans, Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
+const WorkSans = Work_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+const InterFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
-    <>
+    <main className={InterFont.className}>
       <Head>
         <link rel="shortcut icon" href="/Logo.svg" />
         <title>Travel With Ease</title>
@@ -43,6 +52,6 @@ export default function App({ Component, pageProps }: AppProps) {
           </motion.div>
         </AnimatePresence>
       </div>
-    </>
+    </main>
   );
 }

@@ -3,31 +3,38 @@ import { motion } from "framer-motion";
 import React, { ReactElement, useEffect } from "react";
 
 interface Props {
-  value: string;
+  value: {
+    country: string;
+    color: string;
+  };
 }
 
 export default function BubblesForCountries({ value }: Props): ReactElement {
   const { location, setLocation } = useAppState();
+
+  useEffect(() => {
+    if (!location) localStorage.setItem("location", "");
+    if (location) localStorage.setItem("location", location);
+  }, [location]);
+
   return (
     <motion.div
       layout
       whileTap={{ scale: 0.9 }}
-      key={value}
+      key={value.country}
       className={`bubble`}
       data-id={"Countries"}
-      data-country={value}
+      style={{ color: value.color }}
+      data-country={value.country}
       onClick={clickHandler}
     >
-      #{value}
+      #{value.country}
     </motion.div>
   );
   function clickHandler(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    console.log(
-      (e.target as HTMLDivElement).getAttribute("data-country") as string
-    );
-
     if ((e.target as HTMLDivElement).style.backgroundColor === "red") {
       (e.target as HTMLDivElement).style.backgroundColor = "";
+      (e.target as HTMLDivElement).style.color = value.color;
       setLocation("");
       return;
     }
@@ -40,6 +47,8 @@ export default function BubblesForCountries({ value }: Props): ReactElement {
       (e.target as HTMLDivElement).style.backgroundColor !== "red"
     )
       (e.target as HTMLDivElement).style.backgroundColor = "red";
+    (e.target as HTMLDivElement).style.color = "white";
+
     setLocation(
       (e.target as HTMLDivElement).getAttribute("data-country") as string
     );

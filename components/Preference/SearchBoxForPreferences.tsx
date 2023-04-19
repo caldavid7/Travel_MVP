@@ -1,7 +1,5 @@
-import { Configuration, OpenAIApi } from "openai";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import Countries from "../../data/counties.json";
 import TypesOfHotels from "../../data/category.json";
 import PreferenceBox, { Preference } from "../PreferenceBox";
 import { useAppState } from "@/context/PreferenceContext";
@@ -10,6 +8,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SearchBar from "../SearchBar";
 import BubbleInSearchBar from "./BubbleInSearchBar";
+import { getOpenAIResponse } from "@/utils/getOpenaiResponse";
 
 interface Props {}
 
@@ -30,7 +29,6 @@ export default function BubbleSection({}: Props): ReactElement {
     setIsLoading,
     preferences,
     setPreferences,
-    location,
   } = useAppState();
 
   //! Add the click listener to close the box when clicking outside the box
@@ -46,10 +44,9 @@ export default function BubbleSection({}: Props): ReactElement {
     };
   }, []);
 
-  //! Set to the localstorage
+  //! Set preferences to the localstorage
   useEffect(() => {
     if (preferences.length > 0) {
-      setIsUsingPreviousPreferences(true);
       localStorage.setItem("preferences", JSON.stringify(preferences));
     }
 
@@ -62,6 +59,12 @@ export default function BubbleSection({}: Props): ReactElement {
     setIsUsingPreviousPreferences,
     shouldTheSelectionBoxBeDisplayed,
   ]);
+
+  //! Set prompt to localStorage
+  useEffect(() => {
+    if (prompt) localStorage.setItem("prompt", prompt);
+    if (!prompt) localStorage.setItem("prompt", "");
+  }, [prompt]);
 
   //! Set the state from the localStorage
   useEffect(() => {
@@ -85,6 +88,8 @@ export default function BubbleSection({}: Props): ReactElement {
             disabled={preferences.length < 1}
             value={prompt}
             setInputField={setPrompt}
+            placeHolder="Enter preferences"
+            bubble={localStorage.getItem("location") ?? undefined}
             handleClick={preferencesHandler}
           ></SearchBar>
 
@@ -104,26 +109,49 @@ export default function BubbleSection({}: Props): ReactElement {
           )}
         </motion.div>
 
-        <PreferenceBox
-          List={TypesOfHotels}
-          initialNoOfBubbles={11}
-          type="Preference"
-        ></PreferenceBox>
+        <div className="flex items-center justify-between">
+          <PreferenceBox
+            List={TypesOfHotels}
+            initialNoOfBubbles={11}
+            type="Preference"
+            placeHolder="Select preferences"
+          ></PreferenceBox>
+          <div>i</div>
+        </div>
       </div>
     </motion.div>
   );
 
   async function preferencesHandler() {
+    if (!localStorage.getItem("location")) {
+      toast.error("Something went wrong", {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+      return;
+    }
+
     if (isUsingPreviousPreferences) {
       // TODO search
       setIsLoading(true);
       try {
-        const response = await getOpenAIResponse();
+        const response = await getOpenAIResponse({
+          preferences,
+          prompt,
+          location: localStorage.getItem("location")!,
+        });
         router.push(
           "/answer?result=" +
             encodeURIComponent(JSON.stringify(response?.response))
         );
       } catch (error) {
+        console.log(error);
         toast.error("Something went wrong", {
           position: "top-center",
           autoClose: 3000,
@@ -152,52 +180,6 @@ export default function BubbleSection({}: Props): ReactElement {
           progress: undefined,
           theme: "dark",
         });
-    }
-  }
-
-  async function getOpenAIResponse() {
-    const configuration = new Configuration({
-      organization: "org-7Gd4Qa9tLzqLrAZ7AVZvhy2H",
-      apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-    });
-    const openai = new OpenAIApi(configuration);
-
-    let processedPreference: string = "";
-    preferences.map((preference) => {
-      processedPreference = processedPreference
-        ? processedPreference + `${preference.category} : ${preference.type} \n`
-        : `\n${preference.category} : ${preference.type} \n`;
-    });
-
-    const actualPrompt = `What the best hotels in ${location} with the following feature ${processedPreference} With a little description of each one.`;
-
-    try {
-      const response = await openai.createChatCompletion({
-        model: "gpt-3.5-turbo",
-        messages: [
-          {
-            role: "system",
-            content:
-              "You are a expert about hotels in the world who only gives correct and genuine answer in a human like tone",
-          },
-          {
-            role: "user",
-            content: actualPrompt,
-          },
-        ],
-      });
-      // Return a response indicating success
-      return {
-        response: {
-          question: "What are the best hotels" + " in " + location,
-          answer:
-            response.data.choices[0].message?.content ||
-            "There was an error please try again",
-        },
-      };
-    } catch (error) {
-      //! Throw the error
-      throw error;
     }
   }
 }

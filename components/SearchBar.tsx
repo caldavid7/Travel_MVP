@@ -7,6 +7,8 @@ interface Props {
   setInputField: React.Dispatch<React.SetStateAction<string>>;
   value: string;
   disabled: boolean;
+  placeHolder: string;
+  bubble?: string;
 }
 
 export default function SearchBar({
@@ -15,6 +17,8 @@ export default function SearchBar({
   setInputField,
   value,
   disabled,
+  placeHolder,
+  bubble,
 }: Props): ReactElement {
   const searchBarRef = useRef<HTMLInputElement>(null);
 
@@ -26,8 +30,37 @@ export default function SearchBar({
         }}
         className="text-lg h-full p-2 grid place-items-center"
       >
-        <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle
+            cx="11.7666"
+            cy="11.7666"
+            r="8.98856"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M18.0183 18.4851L21.5423 22"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
       </span>
+
+      {bubble && (
+        <div className="py-2 px-2 rounded-lg bg-gray-100 mr-1 text-gray-500 ">
+          #{bubble}
+        </div>
+      )}
       <input
         value={value}
         ref={searchBarRef}
@@ -36,7 +69,7 @@ export default function SearchBar({
         }}
         type="text"
         className="w-full h-full focus:outline-transparent "
-        placeholder="Select place here"
+        placeholder={placeHolder}
       />
       <button
         disabled={disabled}

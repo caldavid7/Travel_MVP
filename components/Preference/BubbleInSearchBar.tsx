@@ -13,6 +13,7 @@ export default function BubbleInSearchBar({ preference }: Props): ReactElement {
   return (
     <>
       <motion.div
+        layout
         initial={{ width: 0 }}
         animate={{ width: "auto" }}
         whileTap={{ scale: 0.9 }}

@@ -14,12 +14,14 @@ interface Props {
   List: any[];
   initialNoOfBubbles: number;
   type: "Preference" | "Country";
+  placeHolder: string;
 }
 
 export default function PreferenceBox({
   List,
   initialNoOfBubbles,
   type,
+  placeHolder,
 }: Props): ReactElement {
   const [shouldTheListBeDisplayed, setShouldTheListBeDisplayed] =
     useState(false);
@@ -63,7 +65,7 @@ export default function PreferenceBox({
           <motion.span animate={controls}>
             <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
           </motion.span>
-          <span className="text-base font-semibold">Select preferences</span>
+          <span className="text-base font-semibold">{placeHolder}</span>
         </div>
       </div>
 

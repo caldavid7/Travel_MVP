@@ -1,119 +1,248 @@
 [
-  "United Arab Emirates",
-  "Singapore",
-  "Thailand",
-  "Maldives",
-  "United States of America",
-  "France",
-  "Italy",
-  "Spain",
-  "United Kingdom",
-  "Japan",
-  "Australia",
-  "China",
-  "Canada",
-  "Switzerland",
-  "Mexico",
-  "India",
-  "South Africa",
-  "Egypt",
-  "Morocco",
-  "Brazil",
-  "Argentina",
-  "Austria",
-  "Bahrain",
-  "Belgium",
-  "Cambodia",
-  "Chile",
-  "Colombia",
-  "Costa Rica",
-  "Croatia",
-  "Cuba",
-  "Cyprus",
-  "Czech Republic",
-  "Denmark",
-  "Dominican Republic",
-  "Ecuador",
-  "Estonia",
-  "Finland",
-  "Germany",
-  "Greece",
-  "Guatemala",
-  "Hong Kong",
-  "Hungary",
-  "Indonesia",
-  "Ireland",
-  "Israel",
-  "Jamaica",
-  "Jordan",
-  "Kenya",
-  "Kuwait",
-  "Laos",
-  "Latvia",
-  "Lebanon",
-  "Lithuania",
-  "Luxembourg",
-  "Malaysia",
-  "Malta",
-  "Mauritius",
-  "Myanmar",
-  "Nepal",
-  "Netherlands",
-  "New Zealand",
-  "Norway",
-  "Oman",
-  "Pakistan",
-  "Panama",
-  "Papua New Guinea",
-  "Paraguay",
-  "Peru",
-  "Philippines",
-  "Poland",
-  "Portugal",
-  "Qatar",
-  "Romania",
-  "Russia",
-  "Rwanda",
-  "Saint Kitts and Nevis",
-  "Saint Lucia",
-  "Saint Vincent and The Grenadines",
-  "Samoa",
-  "San Marino",
-  "Sao Tome and Principe",
-  "Saudi Arabia",
-  "Senegal",
-  "Serbia",
-  "Seychelles",
-  "Sierra Leone",
-  "Slovakia",
-  "Slovenia",
-  "Solomon Islands",
-  "Somalia",
-  "Sri Lanka",
-  "Sudan",
-  "Suriname",
-  "Swaziland",
-  "Sweden",
-  "Syria",
-  "Taiwan",
-  "Tajikistan",
-  "Tanzania",
-  "Togo",
-  "Tonga",
-  "Trinidad and Tobago",
-  "Tunisia",
-  "Turkey",
-  "Turkmenistan",
-  "Tuvalu",
-  "Uganda",
-  "Ukraine",
-  "Uruguay",
-  "Uzbekistan",
-  "Vanuatu",
-  "Vatican City",
-  "Venezuela",
-  "Vietnam",
-  "Yemen",
-  "Zambia",
-  "Zimbabwe"
+  {
+    "country": "United Arab Emirates",
+    "color": "#f7dc6f"
+  },
+  {
+    "country": "Singapore",
+    "color": "#f0e68c"
+  },
+  {
+    "country": "Thailand",
+    "color": "#e6e6fa"
+  },
+  {
+    "country": "Maldives",
+    "color": "#afeeee"
+  },
+  {
+    "country": "United States of America",
+    "color": "#ffcc99"
+  },
+  {
+    "country": "France",
+    "color": "#ffe4e1"
+  },
+  {
+    "country": "Italy",
+    "color": "#f5f5dc"
+  },
+  {
+    "country": "Spain",
+    "color": "#fffacd"
+  },
+  {
+    "country": "United Kingdom",
+    "color": "#e6e6fa"
+  },
+  {
+    "country": "Japan",
+    "color": "#f0e68c"
+  },
+  {
+    "country": "Australia",
+    "color": "#add8e6"
+  },
+  {
+    "country": "China",
+    "color": "#ffff99"
+  },
+  {
+    "country": "Canada",
+    "color": "#f5deb3"
+  },
+  {
+    "country": "Switzerland",
+    "color": "#f0f8ff"
+  },
+  {
+    "country": "Mexico",
+    "color": "#ffb6c1"
+  },
+  {
+    "country": "India",
+    "color": "#fafad2"
+  },
+  {
+    "country": "South Africa",
+    "color": "#ffe4c4"
+  },
+  {
+    "country": "Egypt",
+    "color": "#dcdcdc"
+  },
+  {
+    "country": "Morocco",
+    "color": "#f0e68c"
+  },
+  {
+    "country": "Brazil",
+    "color": "#98fb98"
+  },
+  {
+    "country": "Argentina",
+    "color": "#fff0f5"
+  },
+  {
+    "country": "Austria",
+    "color": "#faf0e6"
+  },
+  {
+    "country": "Bahrain",
+    "color": "#ffe4b5"
+  },
+  {
+    "country": "Belgium",
+    "color": "#f0e68c"
+  },
+  {
+    "country": "Cambodia",
+    "color": "#ffe4e1"
+  },
+  {
+    "country": "Chile",
+    "color": "#d3d3d3"
+  },
+  {
+    "country": "Colombia",
+    "color": "#ffefd5"
+  },
+  {
+    "country": "Costa Rica",
+    "color": "#fdfd96"
+  },
+  {
+    "country": "Croatia",
+    "color": "#ffe4c4"
+  },
+  {
+    "country": "Cuba",
+    "color": "#f5deb3"
+  },
+  {
+    "country": "Cyprus",
+    "color": "#afeeee"
+  },
+  {
+    "country": "Czech Republic",
+    "color": "#f0e68c"
+  },
+  {
+    "country": "Denmark",
+    "color": "#add8e6"
+  },
+  {
+    "country": "Dominican Republic",
+    "color": "#f5f5dc"
+  },
+  {
+    "country": "Suriname",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Swaziland",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Sweden",
+    "color": "#B3DE69"
+  },
+  {
+    "country": "Syria",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Taiwan",
+    "color": "#B3DE69"
+  },
+  {
+    "country": "Tajikistan",
+    "color": "#B3DE69"
+  },
+  {
+    "country": "Tanzania",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Thailand",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Togo",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Tonga",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Tunisia",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Turkey",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Turkmenistan",
+    "color": "#B3DE69"
+  },
+  {
+    "country": "Tuvalu",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Uganda",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Ukraine",
+    "color": "#B3DE69"
+  },
+
+  {
+    "country": "United Kingdom",
+    "color": "#B3DE69"
+  },
+
+  {
+    "country": "Uruguay",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Uzbekistan",
+    "color": "#B3DE69"
+  },
+  {
+    "country": "Vanuatu",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Vatican City",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Venezuela",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Vietnam",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Yemen",
+    "color": "#FBB4AE"
+  },
+  {
+    "country": "Zambia",
+    "color": "#C6DBEF"
+  },
+  {
+    "country": "Zimbabwe",
+    "color": "#C6DBEF"
+  }
 ]

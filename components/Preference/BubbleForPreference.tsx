@@ -28,6 +28,8 @@ export default function Bubbles({ preference }: Props): ReactElement {
             data-id={type.replace(" ", "-")}
             style={{
               backgroundColor: selectedPreference?.type === type ? "red" : "",
+              color:
+                selectedPreference?.type === type ? "white" : preference.color,
             }}
             onClick={(e) => selectingHandler(type, e)}
             className={`bubble ${preference.category}`}
@@ -43,6 +45,8 @@ export default function Bubbles({ preference }: Props): ReactElement {
     option: string,
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) {
+    //! Get the already selected preference of that category
+
     const existingPreferenceIndex = preferences.findIndex((preference) => {
       return preference.category === selectedPreference?.category;
     });
@@ -51,18 +55,14 @@ export default function Bubbles({ preference }: Props): ReactElement {
       existingPreferenceIndex !== -1 &&
       preferences[existingPreferenceIndex].type !== option
     ) {
-      document.querySelector(
-        `[data-id="${preferences[existingPreferenceIndex].type.replace(
-          " ",
-          "-"
-        )}"]`
-        //@ts-ignore
-      )!.style.backgroundColor = "";
-
-      document.querySelector(
-        `[data-id="${option.replace(" ", "-")}"]`
-        //@ts-ignore
-      )!.style.backgroundColor = "red";
+      (
+        document.querySelector(
+          `[data-id="${preferences[existingPreferenceIndex].type.replace(
+            " ",
+            "-"
+          )}"]`
+        ) as HTMLDivElement
+      ).style.backgroundColor = "";
 
       setPreferences((prev) =>
         prev.map((preference, index) => {
@@ -88,15 +88,14 @@ export default function Bubbles({ preference }: Props): ReactElement {
       setPreferences((prev) =>
         prev.filter((preference) => preference.type !== option)
       );
-      // @ts-ignore
-      e.target.style.backgroundColor = "";
+      (e.target as HTMLDivElement).style.backgroundColor = "";
       return;
     }
 
     //! When newly selected
     else {
-      //@ts-ignore
-      e.target.style.backgroundColor = "red";
+      (e.target as HTMLDivElement).style.backgroundColor = "red";
+
       setPreferences((prev) => [
         { category: preference.category, type: option },
         ...prev,

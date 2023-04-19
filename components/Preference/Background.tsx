@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import React, { ReactElement } from "react";
-
+import BackgroundImage from "../../public/BackgroundOfPreferenceRoute.png";
+import Image from "next/image";
 interface Props {}
 
 export default function Background({}: Props): ReactElement {
   return (
     <div className="absolute -z-10 left-0 bottom-0 bg-darken right-0 top-32">
-      <svg
+      {/* <svg
         height={"100%"}
         width={"100%"}
         strokeDasharray={10}
@@ -27,7 +28,9 @@ export default function Background({}: Props): ReactElement {
           strokeWidth="0.05mm"
           fill={"none"}
         />
-      </svg>
+      </svg> */}
+
+      <Image src={BackgroundImage} alt=""></Image>
     </div>
   );
 }
