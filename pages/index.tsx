@@ -3,7 +3,6 @@ import SearchBoxForLocation from "@/components/Location/SearchBoxForLocation";
 import Logo from "@/components/Logo";
 import React, { ReactElement } from "react";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 interface Props {}
 
 export default function Preferences({}: Props): ReactElement {

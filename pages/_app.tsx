@@ -6,6 +6,7 @@ import { AppProps } from "next/app";
 import Head from "next/head";
 import { Work_Sans, Inter } from "next/font/google";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import "react-toastify/dist/ReactToastify.css";
 
 const WorkSans = Work_Sans({
   subsets: ["latin"],
