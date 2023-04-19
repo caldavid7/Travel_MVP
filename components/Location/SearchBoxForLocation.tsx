@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { ReactElement } from "react";
+import React, { ReactElement, useEffect } from "react";
 import PreferenceBox from "../PreferenceBox";
 import SearchBar from "../SearchBar";
 import Countries from "../../data/counties.json";
@@ -13,6 +13,10 @@ interface Props {}
 export default function SearchBoxForLocation({}: Props): ReactElement {
   const router = useRouter();
   const { location, setLocation } = useAppState();
+  useEffect(() => {
+    if (!location) localStorage.setItem("location", "");
+    if (location) localStorage.setItem("location", location);
+  }, [location]);
   return (
     <div className="text-center relative z-50">
       <h1 className="text-3xl text-white font-bold tracking-wide mb-4 ">

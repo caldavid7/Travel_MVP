@@ -12,11 +12,6 @@ interface Props {
 export default function BubblesForCountries({ value }: Props): ReactElement {
   const { location, setLocation } = useAppState();
 
-  useEffect(() => {
-    if (!location) localStorage.setItem("location", "");
-    if (location) localStorage.setItem("location", location);
-  }, [location]);
-
   return (
     <motion.div
       layout
