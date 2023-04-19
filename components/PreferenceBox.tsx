@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import React, { ReactElement, useEffect, useState } from "react";
 import BubblesForPreference from "./Preference/BubbleForPreference";
 import BubblesForCountries from "./Location/BubblesForCountries";
+import { useAppState } from "@/context/PreferenceContext";
 
 export interface Preference {
   category: string;
@@ -27,6 +28,11 @@ export default function PreferenceBox({
     useState(false);
   const [shouldMoreListBeDisplayed, setShouldMoreListBeDisplayed] =
     useState(false);
+  const {
+    isUsingPreviousPreferences,
+    setIsUsingPreviousPreferences,
+    preferences,
+  } = useAppState();
 
   useEffect(() => {
     if (!shouldTheListBeDisplayed) {
@@ -43,7 +49,7 @@ export default function PreferenceBox({
           : "scrollbar-thumb-transparent"
       } scrollbar-track-transparent `}
     >
-      <div className=" text-lg text-white ">
+      <div className="flex justify-between items-center text-lg text-white ">
         <div
           className="flex items-center gap-2 w-max"
           onClick={() => {
@@ -67,6 +73,24 @@ export default function PreferenceBox({
           </motion.span>
           <span className="text-base font-semibold">{placeHolder}</span>
         </div>
+        {type === "Preference" &&
+          JSON.parse(localStorage.getItem("preferences") ?? "[]").length > 0 &&
+          !shouldTheListBeDisplayed && (
+            <div className="flex items-center gap-2 ">
+              <input
+                type="checkbox"
+                className=" text-blue-500 checked:bg-red-500"
+                checked={isUsingPreviousPreferences}
+                onChange={() => {
+                  setIsUsingPreviousPreferences((prev) => !prev);
+                }}
+                id="isUsingPreviousPreferences"
+              />
+              <label htmlFor="isUsingPreviousPreferences" className="text-sm">
+                Use the previous preferences
+              </label>
+            </div>
+          )}
       </div>
 
       <AnimatePresence initial={false}>

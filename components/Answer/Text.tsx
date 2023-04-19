@@ -19,6 +19,19 @@ export default function Text({ response }: Props): ReactElement {
           {/*// TODO add a logo of the super guest */}
           <Logo></Logo>
           <motion.button
+            onClick={async () => {
+              await navigator.clipboard.writeText(window.location.href);
+              toast.success("Copied Link to the clipboard", {
+                position: "top-center",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+              });
+            }}
             whileTap={{ scale: 0.9 }}
             className="relative isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl text-lg text-red-500 py-2 px-3"
           >

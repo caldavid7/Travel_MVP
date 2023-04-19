@@ -1,8 +1,8 @@
 [
   {
     "category": "Price",
-    "type": ["Budget", "Medium", "Expensive"],
-    "color": "#1B5E20"
+    "type": ["OnABudget", "Expensive"],
+    "color": "#339145"
   },
   {
     "category": "Star Rating",
@@ -10,23 +10,33 @@
     "color": "#FBC02D"
   },
   {
-    "category": "Location",
-    "type": ["Landmark", "Neighborhood", "City Center"],
-    "color": "#6A1B9A"
+    "category": "Near",
+    "type": ["SunAndSea", "Museum"],
+    "color": "#CDFFBB"
   },
   {
-    "category": "Wi-Fi",
+    "category": "Adventure",
+    "type": ["CulturalExploration"],
+    "color": "#CDA434"
+  },
+  {
+    "category": "Location",
+    "type": ["Landmark", "Neighborhood", "City Center"],
+    "color": "#9f56cc"
+  },
+  {
+    "category": "Wifi",
     "type": ["Free Wi-Fi"],
     "color": "#F44336"
   },
   {
     "category": "Parking",
-    "type": ["Parking"],
+    "type": ["BigParking"],
     "color": "#FF9800"
   },
   {
-    "category": "Swimming Pool",
-    "type": ["Swimming Pool"],
+    "category": "Activities",
+    "type": ["WaterActivities"],
     "color": "#4CAF50"
   },
   {
@@ -35,12 +45,12 @@
     "color": "#2196F3"
   },
   {
-    "category": "Spa",
+    "category": "Bathroom",
     "type": ["Spa"],
     "color": "#9C27B0"
   },
   {
-    "category": "Restaurant",
+    "category": "Food Service",
     "type": ["Restaurant"],
     "color": "#795548"
   },
@@ -50,28 +60,23 @@
     "color": "#E91E63"
   },
   {
-    "category": "Guest Reviews",
-    "type": ["1-10 Scale", "1-5 Scale"],
-    "color": "#C62828"
-  },
-  {
     "category": "Hotel Chain/Brand",
     "type": ["Marriott", "Hilton", "Hyatt"],
     "color": "#d7b10b"
   },
   {
-    "category": "Pet-Friendly",
-    "type": ["Pets Allowed", "Pet-Friendly Accommodations"],
+    "category": "Accommodation",
+    "type": ["Pet-Friendly Accommodations"],
     "color": "#827717"
   },
   {
     "category": "Accessibility",
-    "type": ["Wheelchair-Accessible Rooms", "Accessibility Features"],
+    "type": ["Wheelchair-Accessible Rooms"],
     "color": "#1976D2"
   },
   {
     "category": "Eco-Friendly",
-    "type": ["Environmentally-Friendly Practices", "Certifications"],
+    "type": ["Environmentally-Friendly Practices"],
     "color": "#2E7D32"
   },
   {
@@ -86,7 +91,17 @@
   },
   {
     "category": "Family-Friendly",
-    "type": ["Playgrounds", "Babysitting Services", "Kids' Clubs"],
+    "type": ["Babysitting Services"],
     "color": "#AD1457"
+  },
+  {
+    "category": "Play Area",
+    "type": ["Playgrounds"],
+    "color": "#AD1457"
+  },
+  {
+    "category": "Age",
+    "type": ["AdultsOnly"],
+    "color": "#E91E63"
   }
 ]

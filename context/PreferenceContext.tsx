@@ -42,11 +42,10 @@ const PreferenceProvider = ({ children }: Props) => {
     useState(false);
   useEffect(() => {
     const data = localStorage.getItem("preferences");
-    if (data && JSON.parse(data).length > 0) {
+    if (isUsingPreviousPreferences && data && JSON.parse(data).length > 0) {
       setPreferences(JSON.parse(data));
-      setIsUsingPreviousPreferences(true);
     }
-  }, []);
+  }, [isUsingPreviousPreferences]);
   return (
     <PreferenceContext.Provider
       value={{

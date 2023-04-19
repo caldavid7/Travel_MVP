@@ -36,7 +36,9 @@ export async function getOpenAIResponse({
 
   const actualPrompt = `${
     prompt || "10 hotels"
-  } in ${location} with the following feature ${processedPreference}`;
+  } in ${location} with the following attributes ${processedPreference}
+  With a two line description of each.
+  `;
   console.log(actualPrompt);
   let answer;
   try {

@@ -17,10 +17,6 @@ export default function BubbleSection({}: Props): ReactElement {
   const router = useRouter();
   const inputSectionRef = useRef<HTMLDivElement>(null);
   //! State for preference box
-  const [
-    shouldTheSelectionBoxBeDisplayed,
-    setShouldTheSelectionBoxBeDisplayed,
-  ] = useState(false);
 
   //! State to check if the user is using the previous preferences
   const {
@@ -31,50 +27,27 @@ export default function BubbleSection({}: Props): ReactElement {
     setPreferences,
   } = useAppState();
 
-  //! Add the click listener to close the box when clicking outside the box
-  useEffect(() => {
-    document.addEventListener("click", handler);
-    function handler(e: MouseEvent) {
-      if (!inputSectionRef.current?.contains(e.target as Element)) {
-        setShouldTheSelectionBoxBeDisplayed(false);
-      }
-    }
-    return () => {
-      document.removeEventListener("click", handler);
-    };
-  }, []);
-
   //! Set preferences to the localstorage
   useEffect(() => {
     if (preferences.length > 0) {
       localStorage.setItem("preferences", JSON.stringify(preferences));
     }
 
-    if (preferences.length < 1) {
+    if (preferences.length < 1 && isUsingPreviousPreferences) {
       localStorage.setItem("preferences", "[]");
-      setIsUsingPreviousPreferences(false);
     }
-  }, [
-    preferences,
-    setIsUsingPreviousPreferences,
-    shouldTheSelectionBoxBeDisplayed,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preferences, setIsUsingPreviousPreferences]);
+
+  useEffect(() => {
+    if (!isUsingPreviousPreferences) setPreferences([]);
+  }, [isUsingPreviousPreferences, setPreferences]);
 
   //! Set prompt to localStorage
   useEffect(() => {
     if (prompt) localStorage.setItem("prompt", prompt);
     if (!prompt) localStorage.setItem("prompt", "");
   }, [prompt]);
-
-  //! Set the state from the localStorage
-  useEffect(() => {
-    if (
-      isUsingPreviousPreferences &&
-      JSON.parse(localStorage.getItem("preferences") || "[]").length > 0
-    ) {
-      setPreferences(JSON.parse(localStorage.getItem("preferences") || "[]"));
-    }
-  }, [isUsingPreviousPreferences, setPreferences]);
 
   return (
     <motion.div
@@ -109,22 +82,19 @@ export default function BubbleSection({}: Props): ReactElement {
           )}
         </motion.div>
 
-        <div className="flex items-center justify-between">
-          <PreferenceBox
-            List={TypesOfHotels}
-            initialNoOfBubbles={11}
-            type="Preference"
-            placeHolder="Select preferences"
-          ></PreferenceBox>
-          <div>i</div>
-        </div>
+        <PreferenceBox
+          List={TypesOfHotels}
+          initialNoOfBubbles={9}
+          type="Preference"
+          placeHolder="Select preferences"
+        ></PreferenceBox>
       </div>
     </motion.div>
   );
 
   async function preferencesHandler() {
     if (!localStorage.getItem("location")) {
-      toast.error("Something went wrong", {
+      toast.error("Please make sure location is selected", {
         position: "top-center",
         autoClose: 3000,
         hideProgressBar: false,
@@ -137,7 +107,7 @@ export default function BubbleSection({}: Props): ReactElement {
       return;
     }
 
-    if (isUsingPreviousPreferences) {
+    if (preferences.length > 0) {
       // TODO search
       setIsLoading(true);
       try {
@@ -168,7 +138,6 @@ export default function BubbleSection({}: Props): ReactElement {
       }
     } else {
       setPreferences([]);
-      setShouldTheSelectionBoxBeDisplayed(true);
       if (preferences.length < 1)
         toast.error("Make sure preferences are selected for better result", {
           position: "top-center",
