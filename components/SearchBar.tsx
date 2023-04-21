@@ -67,6 +67,11 @@ export default function SearchBar({
         onChange={(e) => {
           setInputField(e.target.value);
         }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !disabled) {
+            handleClick();
+          }
+        }}
         type="text"
         className="w-full h-full focus:outline-transparent "
         placeholder={placeHolder}
