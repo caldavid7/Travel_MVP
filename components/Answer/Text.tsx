@@ -4,6 +4,7 @@ import Logo from "../Logo";
 import { AI_RESPONSE, getOpenAIResponse } from "@/utils/getOpenaiResponse";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Link from "next/link";
 
 interface Props {
   response: AI_RESPONSE["response"];
@@ -17,7 +18,9 @@ export default function Text({ response }: Props): ReactElement {
       <div className="space-y-8">
         <div className="flex items-center justify-between ">
           {/*// TODO add a logo of the super guest */}
-          <Logo></Logo>
+          <Link href="/">
+            <Logo></Logo>
+          </Link>
           <motion.button
             onClick={async () => {
               await navigator.clipboard.writeText(window.location.href);
@@ -52,7 +55,11 @@ export default function Text({ response }: Props): ReactElement {
           </motion.button>
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-bold text-white">{response.question}</h1>
+          <h1 className="text-4xl font-bold text-white">
+            {localStorage.getItem("prompt")
+              ? localStorage.getItem("prompt")
+              : "Best hotels"}
+          </h1>
           <div className="flex items-center gap-2">
             {response.preferences.map((value, index) => {
               return (

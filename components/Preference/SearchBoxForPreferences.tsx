@@ -121,7 +121,6 @@ export default function BubbleSection({}: Props): ReactElement {
             encodeURIComponent(JSON.stringify(response?.response))
         );
       } catch (error) {
-        console.log(error);
         toast.error("Something went wrong", {
           position: "top-center",
           autoClose: 3000,

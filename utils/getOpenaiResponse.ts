@@ -39,7 +39,6 @@ export async function getOpenAIResponse({
   } in ${location} with the following attributes ${processedPreference}
   With a two line description of each.
   `;
-  console.log(actualPrompt);
   let answer;
   try {
     const response = await openai.createChatCompletion({
@@ -92,11 +91,9 @@ export async function getOpenAIResponse({
   }
 }
 function answerInTheFormOfObject(text: string) {
-  console.log(text);
   const startIndex = text.indexOf("["); // Find the index of the first square bracket
   const endIndex = text.lastIndexOf("]"); // Find the index of the last square bracket
   const jsonArrayText = text.substring(startIndex, endIndex + 1); // Extract the JSON array text
-  console.log(jsonArrayText);
   const jsonArray = JSON.parse(jsonArrayText); // Parse the JSON array text into a JavaScript object
 
   return jsonArray;
