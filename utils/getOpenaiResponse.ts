@@ -22,7 +22,6 @@ export async function getOpenAIResponse({
   location,
 }: Arguments): Promise<AI_RESPONSE> {
   const configuration = new Configuration({
-    organization: "org-7Gd4Qa9tLzqLrAZ7AVZvhy2H",
     apiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
   });
   const openai = new OpenAIApi(configuration);

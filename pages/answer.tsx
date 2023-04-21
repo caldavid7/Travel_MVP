@@ -19,7 +19,6 @@ export default function Answer({}: Props): ReactElement {
   try {
     response = JSON.parse(router.query.result as string);
   } catch (e) {
-    console.log(e);
     return <div></div>;
   }
 
