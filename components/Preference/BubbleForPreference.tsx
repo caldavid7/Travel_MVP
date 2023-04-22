@@ -34,7 +34,7 @@ export default function Bubbles({ preference }: Props): ReactElement {
             onClick={(e) => selectingHandler(type, e)}
             className={`bubble ${preference.category}`}
           >
-            #{type}
+            #{type.split(" ").join("")}
           </motion.div>
         );
       })}

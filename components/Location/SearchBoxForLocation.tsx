@@ -28,18 +28,19 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
             text="Next"
             disabled={!location.trim()}
             value={location}
+            handleEnter={preferencesHandler}
             setInputField={setLocation}
-            placeHolder="Select country where you want to go"
+            placeHolder="Type in the city or country you want to go"
             handleClick={preferencesHandler}
           ></SearchBar>
         </motion.div>
-
+        {/* 
         <PreferenceBox
           List={Countries}
           initialNoOfBubbles={22}
           type="Country"
           placeHolder={"Select Country"}
-        ></PreferenceBox>
+        ></PreferenceBox> */}
       </div>
     </div>
   );

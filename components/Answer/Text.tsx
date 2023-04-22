@@ -56,9 +56,7 @@ export default function Text({ response }: Props): ReactElement {
         </div>
         <div className="flex flex-col gap-2">
           <h1 className="text-4xl font-bold text-white">
-            {localStorage.getItem("prompt")
-              ? localStorage.getItem("prompt")
-              : "Best hotels"}
+            Best Hotels for you in {response.location}
           </h1>
           <div className="flex items-center gap-2">
             {response.preferences.map((value, index) => {
@@ -164,7 +162,6 @@ export default function Text({ response }: Props): ReactElement {
           encodeURIComponent(JSON.stringify(response?.response))
       );
     } catch (e) {
-      console.log(e);
       toast.error("Something went wrong", {
         position: "top-center",
         autoClose: 3000,

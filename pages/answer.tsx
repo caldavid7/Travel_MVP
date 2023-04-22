@@ -7,12 +7,12 @@ import { ToastContainer } from "react-toastify";
 import Script from "next/script";
 import { useJsApiLoader } from "@react-google-maps/api";
 interface Props {}
-
+const library = ["places"];
 export default function Answer({}: Props): ReactElement {
   const router = useRouter();
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string,
-    libraries: ["places"],
+    libraries: library as ["places"],
   });
 
   let response: AI_RESPONSE["response"];

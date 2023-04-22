@@ -14,6 +14,7 @@ export type AI_RESPONSE = {
       hotel_name: string;
       brief_description: string;
     }[];
+    location: string;
   };
 };
 export async function getOpenAIResponse({
@@ -28,16 +29,10 @@ export async function getOpenAIResponse({
 
   let processedPreference: string = "";
   preferences.map((preference) => {
-    processedPreference = processedPreference
-      ? processedPreference + `${preference.category} : ${preference.type} \n`
-      : `\n${preference.category} : ${preference.type} \n`;
+    processedPreference = processedPreference + preference.type + ",";
   });
 
-  const actualPrompt = `${
-    prompt || "10 hotels"
-  } in ${location} with the following attributes ${processedPreference}
-  With a two line description of each.
-  `;
+  const actualPrompt = `10 ${processedPreference} hotels in ${location} with a 2 sentence description of each in the given format`;
   let answer;
   try {
     const response = await openai.createChatCompletion({
@@ -45,7 +40,7 @@ export async function getOpenAIResponse({
       messages: [
         {
           role: "system",
-          content: `You give answer about hotels in the form of JSON object below: [{"hotel_name":"","brief_description":""}] Note:String must be valid from JSON.parse() in JavaScript and data doesn't need to be realtime`,
+          content: `You are a hotel expert who gives answer about hotels in the form of JSON object below: [{"hotel_name":"","brief_description":""}] Note:String must be valid from JSON.parse() in JavaScript and data must be accurate`,
         },
         {
           role: "user",
@@ -81,8 +76,9 @@ export async function getOpenAIResponse({
     return {
       response: {
         preferences: preferences,
-        question: `${prompt || "10 hotels"} in ${location}`,
+        question: `10 best hotels in ${location}`,
         answer: answerInTheFormOfObject(answer),
+        location,
       },
     };
   } catch (error) {
@@ -94,6 +90,5 @@ function answerInTheFormOfObject(text: string) {
   const endIndex = text.lastIndexOf("]"); // Find the index of the last square bracket
   const jsonArrayText = text.substring(startIndex, endIndex + 1); // Extract the JSON array text
   const jsonArray = JSON.parse(jsonArrayText); // Parse the JSON array text into a JavaScript object
-
   return jsonArray;
 }

@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import SearchBar from "../SearchBar";
 import BubbleInSearchBar from "./BubbleInSearchBar";
 import { getOpenAIResponse } from "@/utils/getOpenaiResponse";
+import Loading from "../Loading";
 
 interface Props {}
 
@@ -16,13 +17,13 @@ export default function BubbleSection({}: Props): ReactElement {
   const [prompt, setPrompt] = useState("");
   const router = useRouter();
   const inputSectionRef = useRef<HTMLDivElement>(null);
-  //! State for preference box
 
   //! State to check if the user is using the previous preferences
   const {
     isUsingPreviousPreferences,
     setIsUsingPreviousPreferences,
     setIsLoading,
+    isLoading,
     preferences,
     setPreferences,
   } = useAppState();
@@ -52,45 +53,71 @@ export default function BubbleSection({}: Props): ReactElement {
   return (
     <motion.div
       ref={inputSectionRef}
-      className="bg-transparent grid place-items-center overflow-hidden "
+      className="bg-transparent grid place-items-center overflow-hidden"
     >
-      <div className=" bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem]">
-        <motion.div className="text-white bg-white rounded-md">
-          <SearchBar
-            text="Generate"
-            disabled={preferences.length < 1}
-            value={prompt}
-            setInputField={setPrompt}
-            placeHolder="Enter preferences"
-            bubble={localStorage.getItem("location") ?? undefined}
-            handleClick={preferencesHandler}
-          ></SearchBar>
+      <div
+        className={` bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem] `}
+      >
+        {!isLoading && (
+          <>
+            <div className="text-white text-center text-xl font-semibold tracking-widest text-bold w-full">
+              Find your perfect accommodation in{" "}
+              {localStorage.getItem("location")}
+            </div>
 
-          {preferences.length > 0 && (
-            <AnimatePresence initial={false}>
-              <motion.div className="flex gap-2 py-1 px-2 overflow-hidden overflow-x-auto scrollbar-track-transparent ">
-                {preferences.map((preference, index) => {
-                  return (
-                    <BubbleInSearchBar
-                      key={index}
-                      preference={preference}
-                    ></BubbleInSearchBar>
-                  );
-                })}
-              </motion.div>
-            </AnimatePresence>
-          )}
-        </motion.div>
+            <motion.div className="text-white bg-white rounded-md">
+              <SearchBar
+                text="Generate"
+                disabled={preferences.length < 1 && isLoading}
+                value={prompt}
+                handleEnter={handlerEnter}
+                setInputField={setPrompt}
+                placeHolder="Enter preferences"
+                handleClick={preferencesHandler}
+              ></SearchBar>
 
-        <PreferenceBox
-          List={TypesOfHotels}
-          initialNoOfBubbles={9}
-          type="Preference"
-          placeHolder="Select preferences"
-        ></PreferenceBox>
+              {preferences.length > 0 && (
+                <AnimatePresence initial={false}>
+                  <motion.div
+                    className={`rounded-lg flex gap-2 py-1 px-2 overflow-hidden overflow-x-auto scrollbar-thumb-black scrollbar-rounded scrollbar-track-transparent`}
+                  >
+                    {preferences.map((preference, index) => {
+                      return (
+                        <BubbleInSearchBar
+                          key={preference.type}
+                          preference={preference}
+                        ></BubbleInSearchBar>
+                      );
+                    })}
+                  </motion.div>
+                </AnimatePresence>
+              )}
+            </motion.div>
+
+            <PreferenceBox
+              List={TypesOfHotels}
+              initialNoOfBubbles={9}
+              type="Preference"
+              placeHolder="Select preferences"
+            ></PreferenceBox>
+          </>
+        )}
+        {isLoading && <Loading></Loading>}
       </div>
     </motion.div>
   );
+
+  function handlerEnter(e: React.KeyboardEvent<HTMLInputElement>) {
+    const preference = (e.target as HTMLInputElement).value;
+    setPreferences((prev) => {
+      const newPreferenceArray = [
+        { category: preference, type: preference },
+        ...prev,
+      ];
+      return newPreferenceArray;
+    });
+    setPrompt("");
+  }
 
   async function preferencesHandler() {
     if (!localStorage.getItem("location")) {

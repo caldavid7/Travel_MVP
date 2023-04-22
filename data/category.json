@@ -1,7 +1,7 @@
 [
   {
     "category": "Price",
-    "type": ["OnABudget", "Expensive"],
+    "type": ["On A Budget", "Expensive"],
     "color": "#339145"
   },
   {
@@ -11,12 +11,12 @@
   },
   {
     "category": "Near",
-    "type": ["SunAndSea", "Museum"],
+    "type": ["Sun And Sea", "Museum"],
     "color": "#CDFFBB"
   },
   {
     "category": "Adventure",
-    "type": ["CulturalExploration"],
+    "type": ["Cultural Exploration"],
     "color": "#CDA434"
   },
   {
@@ -31,12 +31,12 @@
   },
   {
     "category": "Parking",
-    "type": ["BigParking"],
+    "type": ["Big Parking"],
     "color": "#FF9800"
   },
   {
     "category": "Activities",
-    "type": ["WaterActivities"],
+    "type": ["Water Activities"],
     "color": "#4CAF50"
   },
   {
@@ -101,7 +101,7 @@
   },
   {
     "category": "Age",
-    "type": ["AdultsOnly"],
+    "type": ["Adults Only"],
     "color": "#E91E63"
   }
 ]

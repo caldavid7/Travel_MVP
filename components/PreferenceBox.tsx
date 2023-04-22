@@ -1,4 +1,4 @@
-import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import React, { ReactElement, useEffect, useState } from "react";
@@ -25,14 +25,19 @@ export default function PreferenceBox({
   placeHolder,
 }: Props): ReactElement {
   const [shouldTheListBeDisplayed, setShouldTheListBeDisplayed] =
-    useState(false);
+    useState(true);
   const [shouldMoreListBeDisplayed, setShouldMoreListBeDisplayed] =
     useState(false);
   const {
     isUsingPreviousPreferences,
     setIsUsingPreviousPreferences,
-    preferences,
+    isLoading,
   } = useAppState();
+
+  //! Close the list of preferences when loading
+  useEffect(() => {
+    if (isLoading) setShouldTheListBeDisplayed(false);
+  }, [isLoading]);
 
   useEffect(() => {
     if (!shouldTheListBeDisplayed) {
@@ -41,9 +46,21 @@ export default function PreferenceBox({
   }, [shouldTheListBeDisplayed]);
 
   const controls = useAnimation();
+
+  useEffect(() => {
+    // TODO rotate the caret upward and downward according to the state activeness
+    if (shouldTheListBeDisplayed)
+      controls.start({ rotate: "0deg", transition: { duration: 1 } });
+    else
+      controls.start({
+        rotate: "180deg",
+        transition: { duration: 1 },
+      });
+  }, [shouldTheListBeDisplayed]);
+
   return (
     <motion.div
-      className={`w-full grid gap-4 mt-4 max-h-96 overflow-hidden overflow-y-scroll scrollbar-thin ${
+      className={`w-full grid gap-4 mt-4 max-h-[20rem] overflow-hidden overflow-y-scroll scrollbar-thin ${
         shouldMoreListBeDisplayed
           ? "scrollbar-thumb-gray-400"
           : "scrollbar-thumb-transparent"
@@ -54,22 +71,12 @@ export default function PreferenceBox({
           className="flex items-center gap-2 w-max"
           onClick={() => {
             setShouldTheListBeDisplayed((prev) => {
-              // TODO rotate the caret upward and downward according to the state activeness
-
-              if (prev)
-                controls.start({ rotate: "0deg", transition: { duration: 1 } });
-              else
-                controls.start({
-                  rotate: "180deg",
-                  transition: { duration: 1 },
-                });
-
               return !prev;
             });
           }}
         >
           <motion.span animate={controls}>
-            <FontAwesomeIcon icon={faAngleDown}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faAngleUp}></FontAwesomeIcon>
           </motion.span>
           <span className="text-base font-semibold">{placeHolder}</span>
         </div>

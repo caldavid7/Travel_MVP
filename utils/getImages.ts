@@ -1,10 +1,5 @@
-import axios from "axios";
 import { toast } from "react-toastify";
 import { AI_RESPONSE } from "./getOpenaiResponse";
-
-type GoogleMapsPlaceResponse = {
-  place_id: string;
-};
 
 export interface Images {
   placeName: string;
@@ -18,38 +13,25 @@ type Photo = {
   getUrl: () => string;
 };
 
-type PlaceDetailsResult = {
-  html_attributions: string[];
-  result: {
-    name: string;
-    photos: Photo[];
-
-    // Add other properties from the JSON object as needed
-  };
-  status: string;
-};
-
-const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-
 export async function getImagesFromGoogleMaps(
   openAiResponse: AI_RESPONSE["response"]
 ): Promise<Images[] | []> {
   if (!openAiResponse?.answer) return [];
-  console.log(google);
   const map = new window.google.maps.Map(document.createElement("div"));
   const service = new window.google.maps.places.PlacesService(map);
 
   try {
-    let result2: google.maps.places.PlaceResult[][] = [];
+    let result2: google.maps.places.PlaceResult[] = [];
 
     await Promise.all(
-      openAiResponse.answer.map((hotel) => {
-        return new Promise<void>((resolve) => {
+      openAiResponse.answer.map(async (hotel) => {
+        return new Promise<void>(async (resolve) => {
           const request = {
             query: hotel.hotel_name,
             fields: ["place_id"],
           };
-          service.findPlaceFromQuery(request, (result, status) => {
+
+          service.findPlaceFromQuery(request, async (result, status) => {
             if (
               status === window.google.maps.places.PlacesServiceStatus.OK &&
               result
@@ -58,26 +40,35 @@ export async function getImagesFromGoogleMaps(
                 placeId: result[0].place_id as string,
                 fields: ["name", "photos"],
               };
-              service.getDetails(request, (result, status) => {
-                if (
-                  status === window.google.maps.places.PlacesServiceStatus.OK
-                ) {
-                  result2.push(result as google.maps.places.PlaceResult[]);
-                }
-                resolve();
+              // Wrap the callback-based function with a Promise
+              const detailsResult = await new Promise<any>((innerResolve) => {
+                service.getDetails(request, (result, status) => {
+                  console.log(status);
+                  if (
+                    status ===
+                      window.google.maps.places.PlacesServiceStatus.OK &&
+                    result
+                  ) {
+                    innerResolve(result);
+                  } else {
+                    innerResolve(null);
+                  }
+                });
               });
+
+              if (detailsResult) {
+                // Process the detailsResult here
+                result2.push(detailsResult);
+              }
             }
+            resolve();
           });
         });
       })
     );
-
     const actualAnswer = result2.map((place) => {
-      // @ts-ignore
       if (place.photos) {
-        // @ts-ignore
         const url = findImageWithGreatestHeight(place.photos);
-        // @ts-ignore
         return { photo: url, placeName: place.name };
       }
     });

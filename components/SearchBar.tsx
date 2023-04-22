@@ -1,6 +1,5 @@
-import React, { ReactElement, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useAppState } from "@/context/PreferenceContext";
+import React, { ReactElement, useEffect, useRef } from "react";
 interface Props {
   text: string;
   handleClick: () => void;
@@ -8,20 +7,24 @@ interface Props {
   value: string;
   disabled: boolean;
   placeHolder: string;
-  bubble?: string;
+  handleEnter: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export default function SearchBar({
   handleClick,
+  handleEnter,
   text,
   setInputField,
   value,
   disabled,
   placeHolder,
-  bubble,
 }: Props): ReactElement {
   const searchBarRef = useRef<HTMLInputElement>(null);
+  const { isLoading } = useAppState();
 
+  useEffect(() => {
+    if (isLoading) searchBarRef.current?.blur();
+  }, [isLoading]);
   return (
     <div className="text-black overflow-hidden flex items-center h-12 p-1 bg-white rounded-md">
       <span
@@ -56,20 +59,16 @@ export default function SearchBar({
         </svg>
       </span>
 
-      {bubble && (
-        <div className="py-2 px-2 rounded-lg bg-gray-100 mr-1 text-gray-500 ">
-          #{bubble}
-        </div>
-      )}
       <input
+        autoFocus
         value={value}
         ref={searchBarRef}
         onChange={(e) => {
           setInputField(e.target.value);
         }}
         onKeyDown={(e) => {
-          if (e.key === "Enter" && !disabled) {
-            handleClick();
+          if (e.key === "Enter") {
+            handleEnter(e);
           }
         }}
         type="text"

@@ -6,7 +6,7 @@ const SearchBoxForLocation = dynamic(
   }
 );
 import { ToastContainer } from "react-toastify";
-import Loading from "@/components/Loading";
+import Loading, { ProgressBar } from "@/components/Loading";
 import { useAppState } from "@/context/PreferenceContext";
 import Background from "@/components/Preference/Background";
 import Logo from "@/components/Logo";
@@ -17,7 +17,7 @@ export default function Home() {
   return (
     <div className="h-screen m-0 p-0   relative z-50 isolate bg-black">
       <ToastContainer />
-      {isLoading && <Loading />}
+      {isLoading && <ProgressBar></ProgressBar>}
       <div className="absolute z-50 top-16 left-1/2 -translate-x-1/2">
         <Logo></Logo>
       </div>
@@ -35,14 +35,11 @@ export function getStaticProps() {
   return {
     props: {
       variants: {
-        initialState: {
-          x: "100%",
-        },
         animateState: {
-          x: 0,
+          opacity: 1,
         },
         exitState: {
-          x: "100%",
+          opacity: 0,
         },
       },
     },

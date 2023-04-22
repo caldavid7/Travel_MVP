@@ -25,14 +25,11 @@ export function getStaticProps() {
   return {
     props: {
       variants: {
-        initialState: {
-          x: "-100%",
-        },
         animateState: {
-          x: 0,
+          opacity: 1,
         },
         exitState: {
-          x: "-100%",
+          opacity: 0,
         },
       },
     },
