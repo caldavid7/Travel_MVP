@@ -53,19 +53,19 @@ export default function BubbleSection({}: Props): ReactElement {
   return (
     <motion.div
       ref={inputSectionRef}
-      className="bg-transparent grid place-items-center overflow-hidden"
+      className="w-full lg:max-w-[45rem] lg:min-w-[45rem] md:max-w-[40rem] md:min-w-[40rem] overflow-hidden px-2 lg:p-0"
     >
       <div
-        className={` bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem] `}
+        className={` bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4 p-4`}
       >
         {!isLoading && (
           <>
-            <div className="text-white text-center text-xl font-semibold tracking-widest text-bold w-full">
+            <div className="text-white text-center md:text-xl font-semibold tracking-widest text-bold w-full">
               Find your perfect accommodation in{" "}
               {localStorage.getItem("location")}
             </div>
 
-            <motion.div className="text-white bg-white rounded-md">
+            <motion.div className="text-white bg-white rounded-md overflow-hidden">
               <SearchBar
                 text="Generate"
                 disabled={preferences.length < 1 && isLoading}
@@ -79,7 +79,7 @@ export default function BubbleSection({}: Props): ReactElement {
               {preferences.length > 0 && (
                 <AnimatePresence initial={false}>
                   <motion.div
-                    className={`rounded-lg flex gap-2 py-1 px-2 overflow-hidden overflow-x-auto scrollbar-thumb-black scrollbar-rounded scrollbar-track-transparent`}
+                    className={`rounded-lg flex flex-nowrap gap-2 py-1 px-2 overflow-hidden max-w-full overflow-x-auto scrollbar-thumb-black scrollbar-rounded scrollbar-track-transparent`}
                   >
                     {preferences.map((preference, index) => {
                       return (
@@ -109,14 +109,16 @@ export default function BubbleSection({}: Props): ReactElement {
 
   function handlerEnter(e: React.KeyboardEvent<HTMLInputElement>) {
     const preference = (e.target as HTMLInputElement).value;
-    setPreferences((prev) => {
-      const newPreferenceArray = [
-        { category: preference, type: preference },
-        ...prev,
-      ];
-      return newPreferenceArray;
-    });
-    setPrompt("");
+    if (preference) {
+      setPreferences((prev) => {
+        const newPreferenceArray = [
+          { category: preference, type: preference },
+          ...prev,
+        ];
+        return newPreferenceArray;
+      });
+      setPrompt("");
+    }
   }
 
   async function preferencesHandler() {

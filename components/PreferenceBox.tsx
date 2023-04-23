@@ -60,13 +60,13 @@ export default function PreferenceBox({
 
   return (
     <motion.div
-      className={`w-full grid gap-4 mt-4 max-h-[20rem] overflow-hidden overflow-y-scroll scrollbar-thin ${
+      className={`w-full grid gap-4 mt-4 max-h-[25rem] lg:max-h-[20rem] overflow-hidden overflow-y-scroll scrollbar-thin ${
         shouldMoreListBeDisplayed
           ? "scrollbar-thumb-gray-400"
           : "scrollbar-thumb-transparent"
       } scrollbar-track-transparent `}
     >
-      <div className="flex justify-between items-center text-lg text-white ">
+      <div className="flex justify-between items-center text-white ">
         <div
           className="flex items-center gap-2 w-max"
           onClick={() => {
@@ -78,12 +78,14 @@ export default function PreferenceBox({
           <motion.span animate={controls}>
             <FontAwesomeIcon icon={faAngleUp}></FontAwesomeIcon>
           </motion.span>
-          <span className="text-base font-semibold">{placeHolder}</span>
+          <span className="text-sm md:text-base font-semibold whitespace-nowrap">
+            {placeHolder}
+          </span>
         </div>
         {type === "Preference" &&
           JSON.parse(localStorage.getItem("preferences") ?? "[]").length > 0 &&
           !shouldTheListBeDisplayed && (
-            <div className="flex items-center gap-2 ">
+            <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 className=" text-blue-500 checked:bg-red-500"
@@ -93,8 +95,12 @@ export default function PreferenceBox({
                 }}
                 id="isUsingPreviousPreferences"
               />
-              <label htmlFor="isUsingPreviousPreferences" className="text-sm">
-                Use the previous preferences
+              <label
+                htmlFor="isUsingPreviousPreferences"
+                className="text-xs md:text-sm "
+              >
+                Use the previous{" "}
+                <span className="hidden md:inline">preferences</span>
               </label>
             </div>
           )}

@@ -8,7 +8,7 @@ interface Props {}
 export default function Preferences({}: Props): ReactElement {
   return (
     <>
-      <div className="absolute z-50 top-16 left-1/2 isolate -translate-x-1/2">
+      <div className="absolute z-50 top-16 left-1/2 isolate -translate-x-1/2 sm:p-4">
         <Logo></Logo>
       </div>
 

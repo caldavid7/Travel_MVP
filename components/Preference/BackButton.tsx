@@ -19,7 +19,7 @@ export default function BackButton({}: Props): ReactElement {
       onKeyDown={(e) => {
         if (e.key == "Enter") buttonRef.current?.click();
       }}
-      className={`bubble absolute top-16 left-16`}
+      className={`bubble absolute top-16 left-4 lg:left-16`}
       data-id={"Countries"}
     >
       <Link

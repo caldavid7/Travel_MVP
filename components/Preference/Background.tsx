@@ -30,7 +30,11 @@ export default function Background({}: Props): ReactElement {
         />
       </svg> */}
 
-      <Image src={BackgroundImage} alt=""></Image>
+      <Image
+        className="h-full w-full object-cover"
+        src={BackgroundImage}
+        alt=""
+      ></Image>
     </div>
   );
 }

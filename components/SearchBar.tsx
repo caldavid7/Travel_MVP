@@ -25,6 +25,7 @@ export default function SearchBar({
   useEffect(() => {
     if (isLoading) searchBarRef.current?.blur();
   }, [isLoading]);
+
   return (
     <div className="text-black overflow-hidden flex items-center h-12 p-1 bg-white rounded-md">
       <span
@@ -72,7 +73,7 @@ export default function SearchBar({
           }
         }}
         type="text"
-        className="w-full h-full focus:outline-transparent "
+        className="w-full h-full focus:outline-transparent placeholder:text-sm lg:placeholder:text-base"
         placeholder={placeHolder}
       />
       <button

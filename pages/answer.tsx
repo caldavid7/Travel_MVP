@@ -25,7 +25,7 @@ export default function Answer({}: Props): ReactElement {
   return (
     <>
       <ToastContainer></ToastContainer>
-      <div className="bg-black h-screen w-screen grid grid-cols-[1.2fr_1fr] relative z-50 text-white overflow-hidden">
+      <div className="bg-black h-screen w-screen grid grid-rows-3 lg:grid-rows-1 lg:grid-cols-[1.2fr_1fr] relative z-50 text-white overflow-hidden">
         <Text response={response}></Text>
         <Images isLoaded={isLoaded} response={response}></Images>
       </div>

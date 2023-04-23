@@ -24,8 +24,7 @@ export default function Home() {
       <Background></Background>
 
       <BackButton></BackButton>
-
-      <div className="absolute top-1/2 md:left-1/2 md:-translate-x-1/2 sm:py-4 -translate-y-1/2 z-10 overflow-hidden">
+      <div className="h-full w-full grid place-items-center">
         <SearchBoxForLocation> </SearchBoxForLocation>
       </div>
     </div>

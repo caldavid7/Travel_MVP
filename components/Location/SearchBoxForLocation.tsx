@@ -18,11 +18,11 @@ export default function SearchBoxForLocation({}: Props): ReactElement {
     if (location) localStorage.setItem("location", location);
   }, [location]);
   return (
-    <div className="text-center relative z-50">
-      <h1 className="text-3xl text-white font-bold tracking-wide mb-4 ">
+    <div className="text-center relative z-50 w-full px-2 lg:px-0 lg:w-[45rem]">
+      <h1 className="sm:text-xl md:text-3xl text-white font-bold tracking-wide mb-4 ">
         Find the perfect accommodation for you
       </h1>
-      <div className=" bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4   p-4 w-[45rem]">
+      <div className=" bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4  p-4">
         <motion.div className="text-white">
           <SearchBar
             text="Next"

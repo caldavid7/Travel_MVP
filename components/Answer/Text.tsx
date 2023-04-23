@@ -14,11 +14,11 @@ export default function Text({ response }: Props): ReactElement {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   return (
-    <article className="p-10 flex flex-col max-h-screen relative z-50">
+    <article className="p-4 lg:p-10 flex flex-col max-h-screen relative z-50 row-span-2">
       <div className="space-y-8">
         <div className="flex items-center justify-between ">
           {/*// TODO add a logo of the super guest */}
-          <Link href="/">
+          <Link className="w-40 lg:w-auto" href="/">
             <Logo></Logo>
           </Link>
           <motion.button
@@ -36,7 +36,7 @@ export default function Text({ response }: Props): ReactElement {
               });
             }}
             whileTap={{ scale: 0.9 }}
-            className="relative isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl text-lg text-red-500 py-2 px-3"
+            className="relative isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl lg:text-lg text-red-500 py-2 px-3"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@ export default function Text({ response }: Props): ReactElement {
           </motion.button>
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-4xl font-bold text-white">
+          <h1 className="text-xl lg:text-4xl font-bold text-white">
             Best Hotels for you in {response.location}
           </h1>
           <div className="flex items-center gap-2">
@@ -88,9 +88,9 @@ export default function Text({ response }: Props): ReactElement {
                 x: 0,
                 transition: { delay: 0.2 * index },
               }}
-              className="group rounded-lg border border-transparent hover:bg-[rgba(35,35,35,0.64)] hover:border-gray-500 p-2 max-w-[90%]"
+              className="group rounded-lg border border-transparent hover:bg-[rgba(35,35,35,0.64)] hover:border-gray-500 p-2 lg:max-w-[90%]"
             >
-              <h1 className="group-hover:text-red-500 text-xl font-semibold ">
+              <h1 className="group-hover:text-red-500  lg:text-xl font-semibold ">
                 {index + 1}. {hotel.hotel_name}
               </h1>
               <span className="text-white/60 px-2">

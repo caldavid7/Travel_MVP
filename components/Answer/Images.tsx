@@ -74,7 +74,7 @@ const ImageSlider = ({ response, isLoaded }: Props) => {
   };
 
   return (
-    <div className="relative  overflow-hidden">
+    <div className="relative row-start-1 lg:row-start-auto overflow-hidden">
       <AnimatePresence initial={false} custom={direction}>
         {loading && (
           <div className="flex items-center justify-center min-h-screen p-5 bg-transparent min-w-screen">
