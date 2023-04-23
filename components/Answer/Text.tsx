@@ -58,7 +58,7 @@ export default function Text({ response }: Props): ReactElement {
           <h1 className="text-xl lg:text-4xl font-bold text-white">
             Best Hotels for you in {response.location}
           </h1>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center flex-wrap gap-2">
             {response.preferences.map((value, index) => {
               return (
                 <motion.div
