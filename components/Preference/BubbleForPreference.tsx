@@ -1,6 +1,7 @@
-import { Preference, useAppState } from "@/context/PreferenceContext";
+import { useAppState } from "@/context/PreferenceContext";
 import { motion } from "framer-motion";
 import React, { ReactElement, useEffect } from "react";
+import { toast } from "react-toastify";
 
 interface Props {
   preference: {
@@ -34,7 +35,7 @@ export default function Bubbles({ preference }: Props): ReactElement {
             onClick={(e) => selectingHandler(type, e)}
             className={`bubble ${preference.category}`}
           >
-            #{type.split(" ").join("")}
+            #{type.split(" ").join("").toLocaleLowerCase()}
           </motion.div>
         );
       })}
@@ -94,6 +95,20 @@ export default function Bubbles({ preference }: Props): ReactElement {
 
     //! When newly selected
     else {
+      if (preferences.length > 10) {
+        toast.warn("Cannot select more than 10 preferences", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        return;
+      }
+
       (e.target as HTMLDivElement).style.backgroundColor = "red";
 
       setPreferences((prev) => [

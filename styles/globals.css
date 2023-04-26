@@ -10,7 +10,7 @@
     @apply text-4xl font-sans font-extrabold text-white  text-center mt-4;
   }
   .bubble {
-    @apply rounded-lg border border-gray-500 bg-transparent px-2 py-1 text-center text-white  font-bold cursor-pointer;
+    @apply rounded-lg border border-gray-500 bg-transparent px-2 py-1 text-center text-white cursor-pointer;
   }
   .answerContainer {
     @apply scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white;

@@ -6,8 +6,8 @@
   },
   {
     "category": "Star Rating",
-    "type": ["1 Star", "2 Star", "3 Star", "4 Star", "5 Star"],
-    "color": "#FBC02D"
+    "type": ["3 Star", "4 Star", "5 Star"],
+    "color": "#79DFFF"
   },
   {
     "category": "Near",
@@ -37,12 +37,12 @@
   {
     "category": "Activities",
     "type": ["Water Activities"],
-    "color": "#4CAF50"
+    "color": "#1da2d8"
   },
   {
     "category": "Fitness Center",
     "type": ["Fitness Center"],
-    "color": "#2196F3"
+    "color": "#EF8094"
   },
   {
     "category": "Bathroom",
@@ -52,7 +52,7 @@
   {
     "category": "Food Service",
     "type": ["Restaurant"],
-    "color": "#795548"
+    "color": "#FFCC69"
   },
   {
     "category": "Room Type",
@@ -67,7 +67,7 @@
   {
     "category": "Accommodation",
     "type": ["Pet-Friendly Accommodations"],
-    "color": "#827717"
+    "color": "#AA8CEB"
   },
   {
     "category": "Accessibility",
@@ -82,12 +82,12 @@
   {
     "category": "Meal Plans",
     "type": ["Bed & Breakfast", "Half-Board Meal", "All-Inclusive Meal"],
-    "color": "#6D4C41"
+    "color": "#FFA674"
   },
   {
     "category": "Business Facilities",
     "type": ["Business Centers", "Meeting Rooms", "Conference Facilities"],
-    "color": "#0D47A1"
+    "color": "#7fcdff"
   },
   {
     "category": "Family-Friendly",

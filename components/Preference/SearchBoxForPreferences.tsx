@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import TypesOfHotels from "../../data/category.json";
-import PreferenceBox, { Preference } from "../PreferenceBox";
+import PreferenceBox from "../PreferenceBox";
 import { useAppState } from "@/context/PreferenceContext";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
@@ -96,7 +96,7 @@ export default function BubbleSection({}: Props): ReactElement {
 
             <PreferenceBox
               List={TypesOfHotels}
-              initialNoOfBubbles={9}
+              initialNoOfBubbles={11}
               type="Preference"
               placeHolder="Select preferences"
             ></PreferenceBox>
@@ -109,6 +109,20 @@ export default function BubbleSection({}: Props): ReactElement {
 
   function handlerEnter(e: React.KeyboardEvent<HTMLInputElement>) {
     const preference = (e.target as HTMLInputElement).value;
+    if (preferences.length > 10) {
+      toast.warn("Cannot select more than 10 preferences", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      return;
+    }
+
     if (preference) {
       setPreferences((prev) => {
         const newPreferenceArray = [

@@ -19,7 +19,7 @@ export default function BubbleInSearchBar({ preference }: Props): ReactElement {
         whileTap={{ scale: 0.9 }}
         className="group relative flex items-center isolate whitespace-nowrap max-h-10 hover:text-white  text-red-500 bg-red-100 pl-4 py-1 rounded-md overflow-hidden min-w-max"
       >
-        <span>#{preference.type}</span>
+        <span>#{preference.type.split(" ").join("").toLocaleLowerCase()}</span>
         <span
           className="text-lg h-full w-1/2 px-2 py-1 grid place-items-center"
           onClick={(e) => {
