@@ -67,7 +67,7 @@ export default function Text({ response }: Props): ReactElement {
                   whileTap={{ scale: 0.9 }}
                   className={`bubble`}
                 >
-                  #{value.type}
+                  #{value.type.split(" ").join("").toLocaleLowerCase()}
                 </motion.div>
               );
             })}
