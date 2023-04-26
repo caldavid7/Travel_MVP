@@ -32,7 +32,7 @@ export async function getOpenAIResponse({
     processedPreference = processedPreference + preference.type + ",";
   });
 
-  const actualPrompt = `10 ${processedPreference} hotels in ${location} with a 2 sentence description of each in the given format`;
+  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 2 sentence description of each in the format of a JSON array below [{"hotel_name":"","brief_description":""}]`;
   let answer;
   try {
     const response = await openai.createChatCompletion({
@@ -40,7 +40,7 @@ export async function getOpenAIResponse({
       messages: [
         {
           role: "system",
-          content: `You are a hotel expert who gives answer about hotels in the form of JSON object below: [{"hotel_name":"","brief_description":""}] Note:String must be valid from JSON.parse() in JavaScript and data must be accurate`,
+          content: `You are a hotel expert who gives correct and genuine answer about hotels `,
         },
         {
           role: "user",
