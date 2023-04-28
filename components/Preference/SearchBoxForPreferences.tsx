@@ -28,6 +28,11 @@ export default function BubbleSection({}: Props): ReactElement {
     setPreferences,
   } = useAppState();
 
+  // ! Set the loading state to false during initial enter
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
   //! Set preferences to the localstorage
   useEffect(() => {
     if (preferences.length > 0) {
@@ -175,7 +180,6 @@ export default function BubbleSection({}: Props): ReactElement {
           theme: "dark",
         });
       } finally {
-        setIsLoading(false);
         localStorage.setItem("preferences", JSON.stringify(preferences));
       }
     } else {
