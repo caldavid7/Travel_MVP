@@ -72,7 +72,7 @@ export default function SearchBar({
           }
         }}
         type="text"
-        className="w-full h-full focus:outline-transparent placeholder:text-sm lg:placeholder:text-base "
+        className="w-full h-full focus:outline-transparent placeholder:text-sm md:placeholder:text-base "
         placeholder={placeHolder}
       />
       <button

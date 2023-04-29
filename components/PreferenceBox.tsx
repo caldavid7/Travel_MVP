@@ -56,7 +56,7 @@ export default function PreferenceBox({
         rotate: "180deg",
         transition: { duration: 1 },
       });
-  }, [shouldTheListBeDisplayed]);
+  }, [controls, shouldTheListBeDisplayed]);
 
   return (
     <motion.div

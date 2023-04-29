@@ -31,7 +31,7 @@ export default function BubbleSection({}: Props): ReactElement {
   // ! Set the loading state to false during initial enter
   useEffect(() => {
     setIsLoading(false);
-  }, []);
+  }, [setIsLoading]);
 
   //! Set preferences to the localstorage
   useEffect(() => {
