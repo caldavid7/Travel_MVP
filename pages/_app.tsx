@@ -20,7 +20,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   return (
-    <main className={InterFont.className}>
+    <main className={`${InterFont.className} h-full w-full`}>
       <Head>
         <link rel="shortcut icon" href="/Logo.svg" />
         <title>Find the perfect accommodation with ease</title>
@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="author" content="Callum Amor" />
         <meta name="robots" content="index,follow" />
       </Head>
-      <div style={{ perspective: -500 }}>
+      <div className="h-full">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={router.route}

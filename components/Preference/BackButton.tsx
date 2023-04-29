@@ -12,7 +12,7 @@ export default function BackButton({}: Props): ReactElement {
     <Link
       href="/"
       ref={buttonRef}
-      className={`absolute left-4 top-16 lg:left-16 rounded-lg focus:outline-transparent focus:border focus:border-gray-500`}
+      className={`absolute left-4 top-8 lg:top-16 lg:left-16 rounded-lg focus:outline-transparent focus:border focus:border-gray-500`}
     >
       <motion.div
         layout
