@@ -7,7 +7,7 @@ interface Props {}
 
 export default function Preferences({}: Props): ReactElement {
   return (
-    <div className="h-screen">
+    <div className="h-full">
       <div className="absolute z-50 top-16 left-1/2 isolate -translate-x-1/2 sm:p-4">
         <Logo></Logo>
       </div>
@@ -15,7 +15,7 @@ export default function Preferences({}: Props): ReactElement {
       <Background></Background>
 
       <ToastContainer />
-      <div className="h-screen w-screen grid place-items-center bg-transparent">
+      <div className="h-full w-full grid place-items-center bg-transparent">
         <SearchBoxForLocation></SearchBoxForLocation>
       </div>
     </div>

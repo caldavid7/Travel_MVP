@@ -35,7 +35,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="author" content="Callum Amor" />
         <meta name="robots" content="index,follow" />
       </Head>
-      <div className="h-full">
+      <div className="h-screen">
         <AnimatePresence initial={false} mode="popLayout">
           <motion.div
             key={router.route}
@@ -46,6 +46,7 @@ export default function App({ Component, pageProps }: AppProps) {
               duration: 1,
             }}
             variants={pageProps.variants}
+            className="h-full"
           >
             <PreferenceProvider>
               <Component {...pageProps} />
