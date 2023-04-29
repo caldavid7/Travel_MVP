@@ -61,7 +61,7 @@ export default function BubbleSection({}: Props): ReactElement {
       className="w-full lg:max-w-[45rem] lg:min-w-[45rem] md:max-w-[40rem] md:min-w-[40rem] overflow-hidden px-2 lg:p-0"
     >
       <div
-        className={` bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4 p-4`}
+        className={` bg-transparent-black filter backdrop-blur-lg rounded-2xl  space-y-4 p-3 md:p-4`}
       >
         {!isLoading && (
           <>
@@ -77,7 +77,7 @@ export default function BubbleSection({}: Props): ReactElement {
                 value={prompt}
                 handleEnter={handlerEnter}
                 setInputField={setPrompt}
-                placeHolder="Enter preferences"
+                placeHolder="Type or select your preferences"
                 handleClick={preferencesHandler}
               ></SearchBar>
 
