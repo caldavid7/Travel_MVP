@@ -1,1 +1,18 @@
+name: Create envfile  # Name of the workflow
 
+on: [push]  # Defines when this workflow should run (on every push event)
+
+jobs:  # Defines the jobs that will run
+  create-envfile:  # Name of the job
+    runs-on: ubuntu-latest  # The environment where the Action will run (Ubuntu in this case)
+    
+    steps:  # The steps to execute in the job
+    - name: Make envfile  # Name of the step
+      uses: SpicyPizza/create-envfile@v2.0  # The GitHub Action to use (version 2.0)
+      with:  # Inputs for the Action
+        envkey_NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: ${{ secrets.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY }}  # The Google Maps API key from GitHub Secrets
+        envkey_NEXT_PUBLIC_OPENAI_API_KEY: ${{ secrets.NEXT_PUBLIC_OPENAI_API_KEY }}  # The OpenAI API key from GitHub Secrets
+        directory: ./  # The directory where the .env file will be created (./ means the root of the repo)
+        file_name: .env  # The name of the .env file to be created
+        fail_on_empty: false  # The Action won't fail if any envkey variables are empty
+        sort_keys: false  # The keys in the .env file won't be sorted alphabetically
