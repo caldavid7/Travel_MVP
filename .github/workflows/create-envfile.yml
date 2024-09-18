@@ -5,7 +5,7 @@ on: [push]  # Defines when this workflow should run (on every push event)
 jobs:  # Defines the jobs that will run
   create-envfile:  # Name of the job
     runs-on: ubuntu-latest  # The environment where the Action will run (Ubuntu in this case)
-    
+
     steps:  # The steps to execute in the job
     - name: Make envfile  # Name of the step
       uses: SpicyPizza/create-envfile@v2.0  # The GitHub Action to use (version 2.0)
