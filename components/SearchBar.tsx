@@ -35,8 +35,7 @@ export default function SearchBar({
         className="text-lg h-full p-2 grid place-items-center"
       >
         <svg
-          width="24"
-          height="24"
+          className="lg:h-6 lg:w-6 w-4 h-4"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -73,12 +72,12 @@ export default function SearchBar({
           }
         }}
         type="text"
-        className="w-full h-full focus:outline-transparent placeholder:text-sm lg:placeholder:text-base"
+        className="w-full h-full focus:outline-transparent placeholder:text-sm md:placeholder:text-base "
         placeholder={placeHolder}
       />
       <button
         disabled={disabled}
-        className="bg-light-gray h-full rounded-lg px-4 font-semibold text-base text-red-500 disabled:text-gray-400"
+        className="bg-light-gray h-full rounded-lg px-2 lg:px-4 font-semibold text-sm  lg:text-base text-red-500 disabled:text-gray-400"
         onClick={handleClick}
       >
         {text}

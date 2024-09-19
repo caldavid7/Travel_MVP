@@ -3,14 +3,8 @@
 @tailwind utilities;
 
 @layer components {
-  .inputSection {
-    @apply p-3 border-2  rounded-lg w-full relative border-gray-400 focus:outline-transparent focus:border-green-500;
-  }
-  .heading {
-    @apply text-4xl font-sans font-extrabold text-white  text-center mt-4;
-  }
   .bubble {
-    @apply rounded-lg border border-gray-500 bg-transparent px-2 py-1 text-center text-white cursor-pointer;
+    @apply rounded-lg border grid place-items-center overflow-hidden whitespace-nowrap border-gray-500 bg-transparent px-2 py-1 text-center text-white cursor-pointer;
   }
   .answerContainer {
     @apply scrollbar-thin scrollbar-track-white/10 scrollbar-thumb-white;

@@ -9,28 +9,24 @@ interface Props {}
 export default function BackButton({}: Props): ReactElement {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   return (
-    <motion.div
-      layout
-      tabIndex={2}
-      whileTap={{ scale: 0.9 }}
-      whileHover={{
-        scale: 1.1,
-      }}
-      onKeyDown={(e) => {
-        if (e.key == "Enter") buttonRef.current?.click();
-      }}
-      className={`bubble absolute top-16 left-4 lg:left-16`}
-      data-id={"Countries"}
+    <Link
+      href="/"
+      ref={buttonRef}
+      className={`absolute left-4 top-8 lg:top-16 lg:left-16 rounded-lg focus:outline-transparent focus:border focus:border-gray-500`}
     >
-      <Link
-        href="/"
-        ref={buttonRef}
+      <motion.div
+        layout
         tabIndex={-1}
-        className="flex h-full w-full items-center gap-2"
+        whileTap={{ scale: 0.9 }}
+        whileHover={{
+          scale: 1.1,
+        }}
+        data-id={"Countries"}
+        className="rounded-lg border overflow-hidden whitespace-nowrap border-gray-500 bg-transparent p-1.5 md:px-2 md:py-1 text-center text-white cursor-pointer h-8 w-max flex items-center gap-1 md:gap-2"
       >
         <FontAwesomeIcon icon={faAngleLeft} />
         Back
-      </Link>
-    </motion.div>
+      </motion.div>
+    </Link>
   );
 }
