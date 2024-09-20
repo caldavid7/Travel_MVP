@@ -32,7 +32,7 @@ export async function getOpenAIResponse({
     processedPreference = processedPreference + preference.type + ",";
   });
 
-  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 2 sentence description of each in the format of a JSON array below [{"hotel_name":"","brief_description":""}]`;
+  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 3 sentence description of each in the format of a JSON array below [{"hotel_name":"","brief_description":""}]`;
   let answer;
   try {
     const response = await openai.createChatCompletion({
