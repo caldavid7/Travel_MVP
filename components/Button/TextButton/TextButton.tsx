@@ -10,7 +10,7 @@ type TextButtonProps = {
 
 export function TextButton({ text, style, onClick, colorClasses }: TextButtonProps) {
     if (!colorClasses) {
-        colorClasses = "bg-white hover:bg-light-red text-middle-gray hover:text-white";
+        colorClasses = "bg-red-500 hover:bg-red-400 text-white hover:text-white";
     }
 
     return (

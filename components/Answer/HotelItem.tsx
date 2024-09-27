@@ -60,7 +60,7 @@ export function HotelItem({ hotel, index }: ItemProps) {
                             display: "flex",
                             flexDirection: "column",
                             width: "100%",
-                            alignItems: "end",
+                            alignItems: "center",
                         }}>
                         <TextButton
                             text='Make A Reservations'
