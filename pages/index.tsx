@@ -24,7 +24,7 @@ export default function Preferences({}: Props): ReactElement {
                     bottom: 10,
                     left: 0,
                     right: 0,
-                    textAlign: "center", // Centers text horizontally
+                    textAlign: "center",
                 }}>
                 <div className='text-white/100 text-sm'>
                     Trusted by over 1000+ guests globally. All Rights Reserved
