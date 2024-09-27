@@ -9,7 +9,7 @@ export default function Loading({}: Props): ReactElement {
   useEffect(() => {
     const handler = () => {
       if (textContainer.current) {
-        textContainer.current.textContent = "Generating ...";
+        textContainer.current.textContent = "Finalizing your personalized recommendations";
       }
 
       timer.current = setTimeout(() => {
@@ -41,7 +41,7 @@ export default function Loading({}: Props): ReactElement {
         ref={textContainer}
         className="text-white font-bold text-2xl tracking-wider"
       >
-        Connecting ...
+        Finding your perfect stay
       </div>
     </div>
   );
