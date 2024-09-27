@@ -59,7 +59,6 @@ export const FullScreenOverlay: React.FC<FullScreenOverlayProps> = ({
                                 text={confirmText}
                                 style={{ width: "250px" }}
                                 onClick={onConfirm}
-                                colorClasses='bg-white hover:bg-red-500 text-middle-gray hover:text-white'
                             />
                         </div>
                     </motion.div>
