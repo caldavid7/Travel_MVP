@@ -1,0 +1,32 @@
+.hidden {
+    opacity: 0;
+}
+
+.iconButton {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.1s ease, opacity 0.1s ease;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    
+}
+
+.iconButton:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.icon {
+    fill: white;
+    transition: fill 0.3s ease;
+}
+
+.iconButton:hover .icon {
+    fill: red;
+}
+
+.hoverContainer:hover .iconButton {
+    opacity: 1 !important;
+}

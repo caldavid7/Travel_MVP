@@ -33,6 +33,7 @@
     "typescript": "5.0.4"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/react-image-gallery": "^1.2.0"
   }
 }

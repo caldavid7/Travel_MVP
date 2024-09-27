@@ -1,11 +1,11 @@
 import { AnimatePresence, motion } from "framer-motion";
 import React, { ReactElement, useState } from "react";
-import Logo from "../Logo";
 import { AI_RESPONSE, getOpenAIResponse } from "@/utils/getOpenaiResponse";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Link from "next/link";
-
+import { HotelItem } from "@/components/Answer/HotelItem";
+import Logo from "@/components/Logo";
 interface Props {
   response: AI_RESPONSE["response"];
 }
@@ -19,7 +19,7 @@ export default function Text({ response }: Props): ReactElement {
         <div className="flex items-center justify-between ">
           {/*// TODO add a logo of the super guest */}
           <Link className="w-40 lg:w-auto" href="/">
-            <Logo></Logo>
+            <Logo />
           </Link>
           <motion.button
             onClick={async () => {
@@ -81,22 +81,7 @@ export default function Text({ response }: Props): ReactElement {
       <motion.div className="flex-1 overflow-hidden space-y-2 overflow-y-auto answerContainer">
         {response.answer.map((hotel, index) => {
           return (
-            <motion.div
-              key={hotel.hotel_name}
-              initial={{ x: "-90%" }}
-              animate={{
-                x: 0,
-                transition: { delay: 0.2 * index },
-              }}
-              className="group rounded-lg border border-transparent hover:bg-[rgba(35,35,35,0.64)] hover:border-gray-500 p-2 lg:max-w-[90%]"
-            >
-              <h1 className="group-hover:text-red-500  lg:text-xl font-semibold ">
-                {index + 1}. {hotel.hotel_name}
-              </h1>
-              <span className="text-white/60 px-2">
-                {hotel.brief_description}
-              </span>
-            </motion.div>
+            <HotelItem key={hotel.hotel_name} hotel={hotel} index={index} />
           );
         })}
       </motion.div>

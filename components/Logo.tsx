@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
 import Image from "next/image";
-import LogoImage from "../public/Logo.svg";
+import { Logo as LogoImage } from "@/components/Svgs";
 interface Props {}
 
 export default function Logo({}: Props): ReactElement {
   return (
     <div>
-      <Image src={LogoImage} alt="" />
+      <LogoImage width='296px' height='48px' />
     </div>
   );
 }

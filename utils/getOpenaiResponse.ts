@@ -10,12 +10,14 @@ export type AI_RESPONSE = {
   response: {
     question: string;
     preferences: Preference[];
-    answer: {
-      hotel_name: string;
-      brief_description: string;
-    }[];
+    answer: Array<Hotel>;
     location: string;
   };
+};
+export type Hotel = {
+  hotel_name: string;
+  brief_description: string;
+  blubs: string[];
 };
 export async function getOpenAIResponse({
   preferences,
@@ -32,7 +34,7 @@ export async function getOpenAIResponse({
     processedPreference = processedPreference + preference.type + ",";
   });
 
-  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 2 sentence description of each in the format of a JSON array below [{"hotel_name":"","brief_description":""}]`;
+  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 2 sentence description and 3 short blubs that guests have said or wrote in reviews of each in the format of a JSON array below [{"hotel_name":"","brief_description":"","blubs":[""]}]`;
   let answer;
   try {
     const response = await openai.createChatCompletion({

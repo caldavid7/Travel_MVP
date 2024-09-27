@@ -20,6 +20,7 @@ module.exports = {
       colors: {
         "transparent-black": "rgba(35, 35, 35, 0.64)",
         "light-gray": " #F3F3F3",
+        "middle-gray": "#D9D9D9",
 
         "primary-red": "#E32636",
         "secondary-red": "#FF0000",
