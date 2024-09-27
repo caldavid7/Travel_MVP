@@ -5,7 +5,7 @@ type TextButtonProps = {
     text: string;
     style: CSSProperties;
     onClick: () => void;
-    colorClasses: string;
+    colorClasses?: string;
 }
 
 export function TextButton({ text, style, onClick, colorClasses }: TextButtonProps) {
