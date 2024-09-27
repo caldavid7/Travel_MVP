@@ -48,7 +48,7 @@ export function HotelItem({ hotel, index }: ItemProps) {
                     <div className='text-white/60 pt-10 pb-5 px-4'>
                         What other guests to say
                     </div>
-                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pt-4 pb-5 text-center'>
+                    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pt-4 pb-4 text-center'>
                         {hotel.blubs.map((blub, index) => (
                             <div key={index} className='text-white/80 italic'>
                                 &quot;{blub}&quot;
