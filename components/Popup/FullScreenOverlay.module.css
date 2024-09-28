@@ -36,17 +36,17 @@
     }
 }
 
-.close-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease; /* Smooth transition for hover */
+.buttonsContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
 }
 
-.close-btn:hover {
-    background-color: #0056b3;
+@media (max-width: 800px) {
+    .buttonsContainer {
+        justify-content: center;
+    }
 }
