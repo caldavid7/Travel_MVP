@@ -5,20 +5,35 @@
     width: 100vw;
     height: 100vh;
     margin: 0;
-    background-color: rgba(0, 0, 0, 0.05); /* Semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.4); /* Semi-transparent background */
     display: flex;
     justify-content: center;
     align-items: center;
     color: black !important;
+    z-index: 100; /* Fix overlay is not over other content */
 }
 
 .overlayContent {
     background-color: black;
     padding: 20px;
-    box-shadow: 0px 0px 4px rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
     text-align: center;
     border-radius: 8px;
-    max-width: 40%;
+    max-width: 90%;
+}
+
+/* For viewports between 400px and 1300px */
+@media (min-width: 400px) and (max-width: 1300px) {
+    .overlayContent {
+        max-width: clamp(360px, (100vw + 1625px) * 0.17777, 520px);
+    }
+}
+
+/* For viewports above 1300px */
+@media (min-width: 1300px) {
+    .overlayContent {
+        max-width: 520px;
+    }
 }
 
 .close-btn {
