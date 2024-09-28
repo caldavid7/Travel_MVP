@@ -97,8 +97,7 @@ export function HotelItem({ hotel, index }: ItemProps) {
                                 one of these links, we may earn a small
                                 commission, at no extra cost to you. This helps
                                 us continue providing valuable personalized
-                                content and recommendations. We only share
-                                hotels we genuinely recommend. Thank you for
+                                content and recommendations. Thank you for
                                 your support!'
             />
         </>
