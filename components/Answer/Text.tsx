@@ -36,7 +36,7 @@ export default function Text({ response }: Props): ReactElement {
               });
             }}
             whileTap={{ scale: 0.9 }}
-            className="relative isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl lg:text-lg text-red-500 py-2 px-3"
+            className="lg:static fixed top-2 right-2 isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl lg:text-lg text-red-500 py-2 px-3"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
