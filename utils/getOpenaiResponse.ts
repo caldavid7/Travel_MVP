@@ -17,7 +17,7 @@ export type AI_RESPONSE = {
 export type Hotel = {
   hotel_name: string;
   brief_description: string;
-  blubs: string[];
+  reviews: string[];
 };
 export async function getOpenAIResponse({
   preferences,
@@ -34,7 +34,7 @@ export async function getOpenAIResponse({
     processedPreference = processedPreference + preference.type + ",";
   });
 
-  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 3 sentence description and 3 short blubs that guests have said or wrote in reviews of each in the format of a JSON array below [{"hotel_name":"","brief_description":"","blubs":[]}]`;
+  const actualPrompt = `Array of 10, ${processedPreference} hotels in ${location} with a 3 sentence description and 3 short blubs that guests have said or wrote in reviews of each in the format of a JSON array below [{"hotel_name":"","brief_description":"","reviews":[]}]`;
 
   let answer;
   try {
