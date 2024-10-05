@@ -18,12 +18,12 @@ export default function Home() {
     <div className="h-screen m-0 p-0   relative z-50 isolate bg-black">
       <ToastContainer />
       {isLoading && <ProgressBar></ProgressBar>}
-      <div className="absolute z-50 top-8 lg:top-16 left-1/2 -translate-x-1/2">
+      <div className="absolute z-50 top-14 lg:top-16 left-1/2 -translate-x-1/2">
         <Logo></Logo>
       </div>
       <Background></Background>
 
-      <BackButton></BackButton>
+      <BackButton classNames='top-4 left-4'></BackButton>
       <div className="h-full w-full grid place-items-center">
         <SearchBoxForLocation> </SearchBoxForLocation>
       </div>

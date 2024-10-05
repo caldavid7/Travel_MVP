@@ -26,11 +26,11 @@ export default function Preferences({}: Props): ReactElement {
                     right: 0,
                     textAlign: "center",
                 }}>
-                <div className='text-white/100 text-sm'>
+                <div className='text-white text-xs sm:text-sm'>
                     Trusted by over 1000+ guests globally. All Rights Reserved
                     2024. Giving Guests Superpowers since 2023
                 </div>
-                <div className='text-white/100 text-sm'>Superguest AI LLC</div>
+                <div className='text-white text-xs sm:text-sm'>Superguest AI LLC</div>
             </div>
         </div>
     );

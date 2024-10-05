@@ -18,7 +18,7 @@ export default function Text({ response }: Props): ReactElement {
       <div className="space-y-8">
         <div className="flex items-center justify-between ">
           {/*// TODO add a logo of the super guest */}
-          <Link className="w-40 lg:w-auto" href="/">
+          <Link className="w-40 lg:w-auto hidden lg:block" href="/">
             <Logo />
           </Link>
           <motion.button
@@ -36,7 +36,7 @@ export default function Text({ response }: Props): ReactElement {
               });
             }}
             whileTap={{ scale: 0.9 }}
-            className="relative isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl lg:text-lg text-red-500 py-2 px-3"
+            className="lg:static fixed top-2 right-2 isolate group flex items-center gap-2 bg-white hover:text-white rounded-xl lg:text-lg text-red-500 py-2 px-3"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -55,10 +55,13 @@ export default function Text({ response }: Props): ReactElement {
           </motion.button>
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-xl lg:text-4xl font-bold text-white">
+          <h1 className="text-xl lg:text-4xl font-bold text-white hidden lg:block">
             Best Hotels for you in {response.location}
           </h1>
-          <div className="flex items-center flex-wrap gap-2">
+          <h1 className="text-xl lg:text-4xl font-bold text-white block lg:hidden">
+            10 Best Hotels for you in {response.location}
+          </h1>
+          <div className="items-center flex-wrap gap-2 hidden lg:flex">
             {response.preferences.map((value, index) => {
               return (
                 <motion.div
@@ -72,7 +75,7 @@ export default function Text({ response }: Props): ReactElement {
               );
             })}
           </div>
-          <span className="text-lg mb-2 text-white/70">
+          <span className="text-lg mb-2 text-white/70 hidden lg:block">
             {response.question}
           </span>
         </div>

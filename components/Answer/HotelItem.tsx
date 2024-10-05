@@ -49,7 +49,7 @@ export function HotelItem({ hotel, index }: ItemProps) {
                         What other guests to say
                     </div>
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 pt-4 pb-4 text-center'>
-                        {hotel.blubs.map((blub, index) => (
+                        {Array.isArray(hotel?.reviews) && hotel.reviews.map((blub, index) => (
                             <div key={index} className='text-white/80 italic'>
                                 &quot;{blub}&quot;
                             </div>
@@ -97,8 +97,7 @@ export function HotelItem({ hotel, index }: ItemProps) {
                                 one of these links, we may earn a small
                                 commission, at no extra cost to you. This helps
                                 us continue providing valuable personalized
-                                content and recommendations. We only share
-                                hotels we genuinely recommend. Thank you for
+                                content and recommendations. Thank you for
                                 your support!'
             />
         </>

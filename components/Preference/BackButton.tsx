@@ -4,15 +4,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import React, { ReactElement, useRef } from "react";
 
-interface Props {}
+interface Props {
+    classNames?: string;
+}
 
-export default function BackButton({}: Props): ReactElement {
+export default function BackButton({ classNames = 'left-4 top-8' }: Props): ReactElement {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   return (
     <Link
       href="/"
       ref={buttonRef}
-      className={`absolute left-4 top-8 lg:top-16 lg:left-16 rounded-lg focus:outline-transparent focus:border focus:border-gray-500`}
+      className={`absolute lg:top-16 lg:left-16 rounded-lg focus:outline-transparent focus:border focus:border-gray-500 ${classNames}`}
     >
       <motion.div
         layout

@@ -37,24 +37,15 @@ export const FullScreenOverlay: React.FC<FullScreenOverlayProps> = ({
                         exit={{ scale: 0.8 }}
                         transition={{ duration: 0.5 }}>
                         <div className='text-white/60'>
-                            <h1>
-                                {textContent}
-                            </h1>
+                            <h1>{textContent}</h1>
                         </div>
-                        <div
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                paddingTop: "20px",
-                                gap: "210px",
-                            }}>
+                        <div className={styles.buttonsContainer}>
                             <TextButton
                                 text={cancelText}
-                                style={{ width: "120px" }}
+                                style={{ width: "120px", marginRight: "10px" }}
                                 onClick={onCancel}
                                 colorClasses='bg-transparent hover:bg-white text-middle-gray hover:text-red-500'
                             />
-
                             <TextButton
                                 text={confirmText}
                                 style={{ width: "250px" }}
