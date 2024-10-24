@@ -21,7 +21,6 @@ export default function Home() {
         <Logo></Logo>
       </div>
       <Background></Background>
-
       <BackButton></BackButton>
       <div className="h-full w-full grid place-items-center">
         <SearchBoxForLocation> </SearchBoxForLocation>
